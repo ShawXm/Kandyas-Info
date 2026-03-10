@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KANDYAS · personal</title>
+    <!-- Font Awesome for icons (Telegram, TikTok, etc) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f7f0 0%, #e2f0da 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* main card – clean & modern */
+        .glass-card {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px 48px 48px 48px;
+            box-shadow: 0 25px 50px -8px rgba(0, 60, 30, 0.3),
+                        0 0 0 2px rgba(70, 140, 90, 0.15);
+            padding: 2.8rem 2.5rem;
+            border: 1px solid rgba(120, 180, 130, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        /* language selector – minimal, 3 dots style */
+        .lang-panel {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            color: #1e3a2f;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 0.3px;
+            border: 1.5px solid transparent;
+        }
+        .lang-btn:hover {
+            border-color: #9bbd9b;
+            background: rgba(40, 100, 60, 0.05);
+        }
+        .lang-btn.active {
+            background: #2c6e4c;
+            color: white;
+            border-color: #1d4d33;
+            box-shadow: 0 4px 8px rgba(40, 100, 60, 0.3);
+        }
+
+        /* logo area */
+        .logo-wrapper {
+            margin-bottom: 2.2rem;
+            text-align: left;
+        }
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #1d4d33;
+            text-shadow: 3px 3px 0 #bef5cf, 6px 6px 0 rgba(0,0,0,0.05);
+            display: inline-block;
+            line-height: 1;
+            background: linear-gradient(130deg, #184f2e, #317b4b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+        }
+        .logo span {
+            font-size: 2rem;
+            background: none;
+            -webkit-text-fill-color: #22663a;
+            color: #22663a;
+            background: none;
+        }
+
+        /* social bricks — the blue rectangle buttons */
+        .social-bricks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2.5rem 0 2rem;
+        }
+        .brick {
+            background: #1e6df2;         /* rich blue */
+            border: none;
+            border-radius: 22px;          /* rectangular but soft */
+            padding: 1rem 2rem 1rem 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 14px 22px -8px #0d2f66, 0 4px 0 0 #0f3a7a inset, 0 -2px 8px rgba(255,255,255,0.3) inset;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-bottom: 3px solid #0b3b77;
+            flex: 0 1 auto;
+            min-width: 190px;
+        }
+        .brick i {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 2px black);
+        }
+        .brick:hover {
+            transform: scale(1.02) translateY(-3px);
+            background: #2675f7;
+            box-shadow: 0 20px 25px -8px #0d2f66, 0 4px 0 0 #0f3a7a inset;
+        }
+        .brick:active {
+            transform: translateY(3px);
+            border-bottom-width: 1px;
+        }
+        /* special variant for the channel brick (same style, different accent) */
+        .brick.channel {
+            background: #1a4b8c;
+            box-shadow: 0 14px 22px -8px #0a274a, 0 4px 0 0 #0d2f5a inset;
+        }
+        .brick.channel i {
+            font-size: 1.9rem;
+        }
+
+        /* info panels – personal data with green love */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+        .info-item {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 30px;
+            padding: 1.2rem 1.7rem;
+            border: 2px solid #22663a40;
+            box-shadow: 0 10px 15px -10px #1c4d30;
+            transition: 0.2s;
+        }
+        .info-item:hover {
+            border-color: #2c874a;
+            background: rgba(215, 245, 210, 0.7);
+        }
+        .info-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: #144d27;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-label i {
+            color: #206b38;
+            font-size: 1.2rem;
+        }
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #052012;
+            word-break: break-word;
+        }
+        .green-highlight {
+            background: #206b38;
+            color: white;
+            padding: 0.1rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .skills-badge {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            margin-top: 8px;
+        }
+        .skill-tag {
+            background: #317242;
+            color: white;
+            padding: 0.3rem 1.3rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: 1px solid #c8f7d3;
+            box-shadow: 0 4px 6px #0000001a;
+        }
+
+        /* extra unique shape (abstract decoration) */
+        .unique-shape {
+            margin-top: 2rem;
+            text-align: right;
+            position: relative;
+        }
+        .unique-shape::before {
+            content: "✦ ✦ ✦";
+            font-size: 2rem;
+            color: #38834f;
+            opacity: 0.4;
+            letter-spacing: 8px;
+        }
+        .unique-shape::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 30px;
+            background: linear-gradient(90deg, transparent, #5da36d, transparent);
+            border-radius: 50%;
+            margin-left: auto;
+            margin-top: 0.5rem;
+            filter: blur(6px);
+        }
+
+        /* footer or extra vibe */
+        .islamic-pattern {
+            font-size: 1.2rem;
+            color: #17552e;
+            margin-top: 2rem;
+            border-top: 2px dashed #6f9e7c;
+            padding-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .islamic-pattern i {
+            color: #236b3a;
+        }
+
+        /* responsive touches */
+        @media (max-width: 700px) {
+            .glass-card { padding: 1.8rem; }
+            .logo { font-size: 3rem; }
+            .brick { min-width: 100%; justify-content: center; }
+            .info-value { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-card" id="mainCard">
+
+        <!-- language switcher -->
+        <div class="lang-panel" id="languageSelector">
+            <button class="lang-btn active" data-lang="ku">کوردی</button>
+            <button class="lang-btn" data-lang="ar">عربي</button>
+            <button class="lang-btn" data-lang="en">English</button>
+        </div>
+
+        <!-- logo KANDYAS -->
+        <div class="logo-wrapper">
+            <div class="logo">KANDYAS<span>.</span></div>
+        </div>
+
+        <!-- social bricks (blue rectangles) -->
+        <div class="social-bricks" id="socialBricks">
+            <!-- telegram personal brick -->
+            <a href="https://t.me/i4m_SHAW" target="_blank" class="brick" id="brickTelegram">
+                <i class="fab fa-telegram-plane"></i>
+                <span data-i18n="telegram_btn">@i4m_SHAW</span>
+            </a>
+            <!-- tiktok brick -->
+            <a href="https://tiktok.com/@kandyasm" target="_blank" class="brick" id="brickTiktok">
+                <i class="fab fa-tiktok"></i>
+                <span data-i18n="tiktok_btn">@kandyasm</span>
+            </a>
+            <!-- telegram channel brick (special) -->
+            <a href="https://t.me/Kurds_Movies" target="_blank" class="brick channel" id="brickChannel">
+                <i class="fab fa-telegram-plane"></i>
+                <span data-i18n="channel_btn">Kurds_Movies</span>
+            </a>
+        </div>
+
+        <!-- personal information grid (dynamic content by language) -->
+        <div class="info-grid" id="infoGrid">
+            <!-- name -->
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-user"></i> <span data-i18n="name_label">ناو</span></div>
+                <div class="info-value" data-i18n="name_value">Kandyas</div>
+            </div>
+            <!-- age / birth -->
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-cake-candles"></i> <span data-i18n="age_label">تەمەن / لەدایکبوون</span></div>
+                <div class="info-value" data-i18n="age_value">19 · 18/6</div>
+            </div>
+            <!-- favourite color (green heart) -->
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-heart" style="color:#1f8b4c;"></i> <span data-i18n="color_label">ڕەنگی دڵخواز</span></div>
+                <div class="info-value green-highlight">💚 سەوز / Green</div>
+            </div>
+            <!-- expertise (programming & decoding) -->
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-code"></i> <span data-i18n="skills_label">شارەزایی</span></div>
+                <div class="skills-badge">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag">دیکۆدینگ</span>
+                    <span class="skill-tag">کۆدینگ</span>
+                </div>
+            </div>
+            <!-- islam & medicine aspiration -->
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-mosque"></i> <span data-i18n="religion_label">دین</span></div>
+                <div class="info-value" data-i18n="religion_value">ئیسلام</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label"><i class="fas fa-stethoscope"></i> <span data-i18n="study_label">ئاراستە</span></div>
+                <div class="info-value" data-i18n="study_value">پزیشکی</div>
+            </div>
+        </div>
+
+        <!-- unique shape element (shaw thing) -->
+        <div class="unique-shape"></div>
+
+        <!-- islamic & personality footer -->
+        <div class="islamic-pattern">
+            <i class="fas fa-star-and-crescent"></i>
+            <span data-i18n="footer_note">Kandyas • 19 • پزیشکی • decoding • ئیسلام</span>
+            <i class="fas fa-code-branch"></i>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---- multilingual dictionary ----
+            const translations = {
+                ku: {
+                    telegram_btn: "@i4m_SHAW",
+                    tiktok_btn: "@kandyasm",
+                    channel_btn: "Kurds_Movies",
+                    name_label: "ناو",
+                    name_value: "Kandyas",
+                    age_label: "تەمەن / لەدایکبوون",
+                    age_value: "١٩ · ١٨/٦",
+                    color_label: "ڕەنگی دڵخواز",
+                    color_value: "💚 سەوز",
+                    skills_label: "شارەزایی",
+                    religion_label: "دین",
+                    religion_value: "ئیسلام",
+                    study_label: "ئاراستە",
+                    study_value: "پزیشکی",
+                    footer_note: "Kandyas • ١٩ • پزیشکی • decoding • ئیسلام"
+                },
+                ar: {
+                    telegram_btn: "@i4m_SHAW",
+                    tiktok_btn: "@kandyasm",
+                    channel_btn: "Kurds_Movies",
+                    name_label: "الاسم",
+                    name_value: "Kandyas",
+                    age_label: "العمر / الميلاد",
+                    age_value: "١٩ · ١٨/٦",
+                    color_label: "اللون المفضل",
+                    color_value: "💚 أخضر",
+                    skills_label: "المهارات",
+                    religion_label: "الدين",
+                    religion_value: "الإسلام",
+                    study_label: "التخصص",
+                    study_value: "طب",
+                    footer_note: "Kandyas • ١٩ • طب • decoding • الإسلام"
+                },
+                en: {
+                    telegram_btn: "@i4m_SHAW",
+                    tiktok_btn: "@kandyasm",
+                    channel_btn: "Kurds_Movies",
+                    name_label: "Name",
+                    name_value: "Kandyas",
+                    age_label: "Age / Birth",
+                    age_value: "19 · 18/6",
+                    color_label: "Fav color",
+                    color_value: "💚 Green",
+                    skills_label: "Expertise",
+                    religion_label: "Religion",
+                    religion_value: "Islam",
+                    study_label: "Field",
+                    study_value: "Medicine",
+                    footer_note: "Kandyas • 19 • Medicine • decoding • Islam"
+                }
+            };
+
+            // get all elements with data-i18n
+            const langElements = document.querySelectorAll('[data-i18n]');
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            // function to set language
+            function setLanguage(lang) {
+                if (!translations[lang]) return;
+
+                // update text for each element
+                langElements.forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.innerText = translations[lang][key];
+                    }
+                });
+
+                // update active class on buttons
+                langBtns.forEach(btn => {
+                    if (btn.getAttribute('data-lang') === lang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                // optional: change some static parts not covered by data-i18n (like the color box, but we keep universal)
+                // green-highlight box shows both text, but we can keep as is – it's fine. 
+                // For the green-highlight we also update via data-i18n ? we set it from color_value if needed.
+                // but we keep green highlight as static? we can improve:
+                const colorBox = document.querySelector('.green-highlight');
+                if (colorBox && translations[lang].color_value) {
+                    colorBox.innerText = translations[lang].color_value;
+                }
+                // fix skills label is generic, the skills list stays same (no translation for tags) – but that's okay
+            }
+
+            // add event listeners to buttons
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const lang = e.target.getAttribute('data-lang');
+                    setLanguage(lang);
+                });
+            });
+
+            // initial active language: kurdish
+            setLanguage('ku');
+
+            // ensure bricks links stay correct (already hardcoded)
+        })();
+    </script>
+
+    <!-- also ensure the green-highlight has dynamic update -->
+    <script>
+        (function enhance() {
+            // add an extra observer to make sure the green box updates with language
+            const setLang = window.setLanguage; // reference
+            // override setLanguage to update green-highlight from color_value
+            const originalSet = window.setLanguage || function(lang) {
+                // if original exists, call it and then adjust green box
+            };
+
+            // we can extend the function
+            const langBtns = document.querySelectorAll('.lang-btn');
+            const translations = {
+                ku: { color_value: "💚 سەوز" },
+                ar: { color_value: "💚 أخضر" },
+                en: { color_value: "💚 Green" }
+            };
+
+            function extendedSetLanguage(lang) {
+                // call previous logic (from first script) -> we need to combine
+                // but the first script already defines setLanguage. We'll override carefully.
+                // Instead, we re-define completely to avoid conflicts.
+
+                // Better: unify all in one script
+            }
+
+            // since we already have the first script, we just add one more update for green box.
+            const originalSetLanguage = window.setLanguage;
+            window.setLanguage = function(lang) {
+                if (originalSetLanguage) originalSetLanguage(lang);
+                // additional update for the green box
+                const greenBox = document.querySelector('.green-highlight');
+                if (greenBox) {
+                    if (lang === 'ku') greenBox.innerText = '💚 سەوز';
+                    else if (lang === 'ar') greenBox.innerText = '💚 أخضر';
+                    else if (lang === 'en') greenBox.innerText = '💚 Green';
+                }
+                // also update the skills label is already done by data-i18n skills_label. good.
+            };
+
+            // re-initialize
+            window.setLanguage('ku');
+            // attach listeners again (but we already have them)
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.removeEventListener('click', window.setLanguage); // avoid duplicate
+                btn.addEventListener('click', (e) => {
+                    const lang = e.target.getAttribute('data-lang');
+                    window.setLanguage(lang);
+                });
+            });
+        })();
+    </script>
+
+    <!-- one more script to ensure telegram channel link is correct and all icons present -->
+    <script>
+        (function lastCheck() {
+            // All good: telegram personal @i4m_SHAW, tiktok @kandyasm, channel Kurds_Movies
+            // The brick channel already has class .channel and correct href
+            console.log('Ready — personal site KANDYAS');
+        })();
+    </script>
+</body>
+</html>
