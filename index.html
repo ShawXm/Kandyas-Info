@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KANDYAS · personal galaxy</title>
-    <!-- Font Awesome -->
+    <title>KANDYAS · MATRIX</title>
+    <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,12 +13,12 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Tajawal:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Tajawal:wght@400;700&display=swap');
 
         body {
+            background: #03060b;
+            font-family: 'Inter', 'Tajawal', sans-serif;
             min-height: 100vh;
-            background: radial-gradient(ellipse at 30% 40%, #0b2e1a, #05190c);
-            font-family: 'Poppins', 'Tajawal', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -27,612 +27,481 @@
             overflow-x: hidden;
         }
 
-        /* floating animated elements */
-        .floating-shapes {
+        /* Matrix background effect (subtle, not overwhelming) */
+        #matrix-canvas {
             position: fixed;
-            width: 100%;
-            height: 100%;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
+            opacity: 0.3;
         }
 
-        .shape {
-            position: absolute;
-            background: rgba(70, 180, 110, 0.1);
-            border-radius: 50%;
-            filter: blur(40px);
-        }
-
-        .shape1 {
-            width: 400px;
-            height: 400px;
-            background: #3d9c5c30;
-            top: -100px;
-            right: -100px;
-            animation: float 15s infinite alternate;
-        }
-
-        .shape2 {
-            width: 500px;
-            height: 500px;
-            background: #1f6e3f30;
-            bottom: -200px;
-            left: -150px;
-            animation: float 20s infinite alternate-reverse;
-        }
-
-        .shape3 {
-            width: 300px;
-            height: 300px;
-            background: #7bc96b30;
-            top: 40%;
-            left: 20%;
-            animation: float 18s infinite alternate;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 30px) scale(1.2); }
-        }
-
-        /* main container - 3D card */
-        .cosmic-card {
+        /* main card – dark glass, hacker vibe */
+        .cyber-core {
             position: relative;
             z-index: 10;
             max-width: 1300px;
             width: 100%;
-            background: rgba(10, 30, 18, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 70px 70px 70px 70px;
-            border: 1px solid rgba(100, 220, 130, 0.4);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(30, 150, 70, 0.2) inset, 0 0 40px #2ecc7140;
-            padding: 3rem 3.5rem;
-            transition: all 0.4s;
-            overflow: hidden;
+            background: rgba(5, 15, 12, 0.7);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 200, 0.25);
+            border-radius: 48px 48px 48px 48px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(0, 255, 200, 0.1) inset, 0 0 60px #00ffff1a;
+            padding: 2.8rem 2.5rem;
         }
 
-        .cosmic-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(130, 255, 170, 0.1), transparent);
-            transform: skewX(-15deg);
-            animation: shine 8s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 50%; }
-            100% { left: 150%; }
-        }
-
-        /* language selector - glowing */
-        .lang-orbits {
+        /* language selector – clean, minimal */
+        .lang-strip {
             display: flex;
             justify-content: flex-end;
-            gap: 1.5rem;
+            gap: 1.2rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
-            position: relative;
         }
-
-        .lang-btn {
-            background: rgba(0, 20, 5, 0.6);
-            border: 1.5px solid #47d36b;
-            color: #e2ffd9;
-            font-size: 1.3rem;
-            font-weight: 600;
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
+        .lang-switch {
+            background: transparent;
+            border: 1.2px solid #607b76;
+            color: #bbf0e0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1.8rem;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s;
-            letter-spacing: 1px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 15px #31b74e;
-            text-transform: uppercase;
-            font-family: 'Tajawal', sans-serif;
+            transition: 0.25s;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+        .lang-switch.active {
+            background: #00cc99;
+            border-color: #aaffdd;
+            color: #03100b;
+            font-weight: 700;
+            box-shadow: 0 0 25px #00ffb3;
+        }
+        .lang-switch:hover {
+            border-color: #28ffc5;
+            color: #ffffff;
+            transform: scale(0.98);
         }
 
-        .lang-btn.active {
-            background: #2fe96b;
-            color: #031007;
-            border-color: #b8ffc8;
-            box-shadow: 0 0 30px #6eff99;
-            transform: scale(1.08);
-            font-weight: 800;
-        }
-
-        .lang-btn:hover {
-            transform: scale(1.05);
-            background: #42b85f;
-            color: black;
-        }
-
-        /* 3D Logo section */
-        .logo-galaxy {
-            text-align: center;
+        /* logo – with code flair */
+        .logo-hacker {
             margin-bottom: 2rem;
-            position: relative;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            border-left: 6px solid #00ffe1;
+            padding-left: 2rem;
         }
-
-        .main-logo {
-            font-size: 7rem;
-            font-weight: 900;
-            background: linear-gradient(145deg, #c2ffb1, #a7ff8c, #4fe081);
+        .logo-main {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d6fff2, #80ffdb, #40f0ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 20px #1fdd5e, 0 0 60px #1db84d;
-            letter-spacing: 8px;
-            line-height: 1;
-            filter: drop-shadow(0 10px 5px #00000060);
-            animation: pulseGlow 3s infinite alternate;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -2px;
+            filter: drop-shadow(0 0 25px #00fff2);
         }
-
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 20px #27dd62, 0 0 40px #1b9b46; }
-            100% { text-shadow: 0 0 40px #79ffa6, 0 0 90px #42f77e; }
-        }
-
-        .sub-logo {
-            color: rgba(210, 255, 210, 0.7);
+        .logo-tag {
+            color: #75857f;
             font-size: 1.2rem;
-            letter-spacing: 12px;
-            margin-top: -0.8rem;
-            font-weight: 300;
+            font-family: 'JetBrains Mono', monospace;
+            margin-left: 0.8rem;
         }
 
-        /* social bricks - premium design */
-        .social-matrix {
+        /* social bricks – blue rectangles (pure blue, not green) */
+        .brick-wall {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 1.8rem;
+            margin: 2.8rem 0 2.8rem;
             justify-content: center;
-            margin: 3.5rem 0;
         }
-
-        .premium-brick {
-            background: linear-gradient(135deg, #1e4b9e, #10347a);
+        .brick-blue {
+            background: linear-gradient(145deg, #0055ff, #0036b3);
             border: none;
-            border-radius: 30px 30px 30px 30px;
-            padding: 1.5rem 3rem;
+            border-radius: 24px;
+            padding: 1.4rem 2.5rem;
             display: flex;
             align-items: center;
             gap: 1.5rem;
             text-decoration: none;
             color: white;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            box-shadow: 0 25px 30px -10px #001d3d, 0 0 0 2px #77ddff inset, 0 -3px 0 #001c4b inset;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 20px 30px -5px #000f3b, 0 0 0 2px #7fc3ff inset, 0 -4px 0 #001d7a inset;
+            transition: 0.25s ease;
+            min-width: 240px;
             flex: 1 1 240px;
-            min-width: 250px;
-            backdrop-filter: blur(5px);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .brick-blue i {
+            font-size: 2.8rem;
+            filter: drop-shadow(2px 4px 4px black);
+        }
+        .brick-blue.channel {
+            background: linear-gradient(145deg, #1f3a7a, #10214f);
+            box-shadow: 0 20px 30px -5px #030e24, 0 0 0 2px #60b5ff inset;
+        }
+        .brick-blue:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 32px 40px -8px #00123f, 0 0 0 3px #aae0ff inset;
         }
 
-        .premium-brick::after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: rotate(30deg);
-            animation: shimmer 5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            30% { transform: translateX(100%) rotate(30deg); }
-            100% { transform: translateX(200%) rotate(30deg); }
-        }
-
-        .premium-brick i {
-            font-size: 3rem;
-            filter: drop-shadow(2px 4px 6px black);
-        }
-
-        .premium-brick.channel {
-            background: linear-gradient(135deg, #0f4d3d, #0a3329);
-            box-shadow: 0 25px 30px -10px #002b1d, 0 0 0 2px #aaffdd inset;
-        }
-
-        .premium-brick:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 40px 40px -5px #001d3d, 0 0 0 4px #c0ffff inset;
-        }
-
-        .brick-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .brick-label {
-            font-size: 1rem;
-            opacity: 0.8;
-            letter-spacing: 1.5px;
-        }
-
-        .brick-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-shadow: 0 2px 5px black;
-        }
-
-        /* INFO cards - floating glass */
-        .info-universe {
+        /* info grid – neutral, minimal, with dark background */
+        .info-matrix {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 2.5rem;
         }
-
-        .cosmic-item {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 50px 20px 50px 20px;
-            padding: 1.8rem;
-            border: 1px solid rgba(100, 255, 150, 0.4);
-            box-shadow: 0 20px 40px -15px black, 0 0 30px rgba(0,255,100,0.2) inset;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
+        .cell {
+            background: rgba(0, 20, 16, 0.6);
+            backdrop-filter: blur(6px);
+            border: 1px solid #1d6d5e;
+            border-radius: 24px;
+            padding: 1.5rem 1.8rem;
+            transition: 0.2s;
+            box-shadow: 0 12px 20px -10px black;
         }
-
-        .cosmic-item::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00ff80, #006633, #19fa8e);
-            border-radius: 50px 20px 50px 20px;
-            z-index: -2;
-            opacity: 0;
-            transition: opacity 0.4s;
+        .cell:hover {
+            border-color: #00ffe1;
+            box-shadow: 0 0 25px #00ffff26;
+            background: rgba(0, 30, 25, 0.7);
         }
-
-        .cosmic-item:hover::before {
-            opacity: 0.3;
-        }
-
-        .cosmic-item:hover {
-            transform: scale(1.02) translateY(-8px);
-            border-color: #48ff96;
-        }
-
-        .item-header {
+        .cell-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.2rem;
-            font-size: 1.4rem;
-            color: #aaffbb;
-            text-shadow: 0 0 8px #00ff80;
-        }
-
-        .item-header i {
-            font-size: 2rem;
-            background: #134d25;
-            padding: 0.7rem;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #26d46c;
-        }
-
-        .item-value {
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: #f0fff0;
-            margin-left: 1rem;
-            word-break: break-word;
-        }
-
-        .green-special {
-            background: linear-gradient(145deg, #0e6730, #1eaa4b);
-            display: inline-block;
-            padding: 0.5rem 1.8rem;
-            border-radius: 60px;
-            font-size: 2rem;
-            box-shadow: 0 0 30px #1eff80;
-            border: 2px solid #b6ffb6;
-        }
-
-        .skills-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .skill-star {
-            background: rgba(0, 50, 15, 0.7);
-            backdrop-filter: blur(4px);
-            border: 1px solid #50ff90;
-            color: #d7ffd7;
-            padding: 0.6rem 1.8rem;
-            border-radius: 40px;
+            color: #92ffe6;
             font-size: 1.2rem;
             font-weight: 600;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 10px #00000050;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .cell-header i {
+            font-size: 1.6rem;
+            color: #15ffcf;
+        }
+        .cell-value {
+            color: #f0fffa;
+            font-size: 1.9rem;
+            font-weight: 700;
+            padding-left: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+        /* favourite color special green block – but only that */
+        .green-chip {
+            background: #0e482e;
+            display: inline-block;
+            padding: 0.4rem 2rem;
+            border-radius: 100px;
+            font-size: 1.9rem;
+            border: 2px solid #55ffa2;
+            box-shadow: 0 0 25px #18ff8c;
+            color: #e9ffec;
+        }
+        /* skills as tags – neutral colours */
+        .skill-tray {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1rem;
+            margin-top: 0.5rem;
+        }
+        .skill-badge {
+            background: #142e28;
+            border: 1px solid #10ccb0;
+            color: #c6ffe6;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.4px;
             transition: 0.2s;
         }
-
-        .skill-star:hover {
-            background: #34d46c;
-            color: #031007;
-            transform: scale(1.05);
-            border-color: yellowgreen;
+        .skill-badge:hover {
+            background: #10b594;
+            color: #030f0b;
+            border-color: white;
+        }
+        /* decoding / coding – will stay as is (no translation needed) */
+        .skill-badge.plain {
+            background: #1f3f48;
+            border-color: #44ccff;
         }
 
-        /* islamic medicine badge */
-        .holistic-badge {
-            margin-top: 2.5rem;
-            text-align: center;
-            background: rgba(0, 30, 10, 0.7);
-            padding: 1.8rem;
-            border-radius: 200px 200px 60px 60px;
-            border: 1px solid #31e685;
-            box-shadow: 0 0 50px #00a639;
-            backdrop-filter: blur(10px);
-        }
-
-        .holistic-text {
+        /* medicine & islam footer – simple */
+        .footer-trim {
+            margin-top: 3rem;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 10, 8, 0.7);
+            border-radius: 60px;
+            border: 1px solid #308570;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 2.5rem;
-            color: #e2ffe2;
-            font-size: 1.8rem;
+            justify-content: space-between;
             flex-wrap: wrap;
+            color: #b4ffe6;
+            font-size: 1.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            backdrop-filter: blur(4px);
+        }
+        .footer-trim i {
+            color: #19f0d0;
+            font-size: 2rem;
+            margin: 0 0.6rem;
+        }
+        .footer-trim span {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .holistic-text i {
-            color: #58ff94;
-            font-size: 3rem;
-            filter: drop-shadow(0 0 10px #00ff73);
-        }
-
-        /* responsive */
-        @media (max-width: 800px) {
-            .cosmic-card { padding: 1.8rem; }
-            .main-logo { font-size: 4rem; letter-spacing: 4px; }
-            .premium-brick { flex-direction: column; text-align: center; }
-            .holistic-text { font-size: 1.2rem; gap: 1rem; }
-        }
-
-        /* unique eye-candy */
-        .sparkles {
-            position: absolute;
+        /* unique hacker element */
+        .glitch-line {
             width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
+            text-align: right;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: #00aa9a;
+            margin-top: 1.2rem;
+            opacity: 0.5;
+            letter-spacing: 4px;
         }
     </style>
 </head>
 <body>
-    <div class="floating-shapes">
-        <div class="shape shape1"></div>
-        <div class="shape shape2"></div>
-        <div class="shape shape3"></div>
-    </div>
-
-    <div class="cosmic-card" id="app">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="cyber-core">
         <!-- language selector -->
-        <div class="lang-orbits" id="langContainer">
-            <button class="lang-btn active" data-lang="ku">کوردی</button>
-            <button class="lang-btn" data-lang="ar">عربي</button>
-            <button class="lang-btn" data-lang="en">English</button>
+        <div class="lang-strip" id="langStrip">
+            <button class="lang-switch active" data-lang="ku">کوردی</button>
+            <button class="lang-switch" data-lang="ar">عربي</button>
+            <button class="lang-switch" data-lang="en">English</button>
         </div>
 
-        <!-- logo KANDYAS with glow -->
-        <div class="logo-galaxy">
-            <div class="main-logo">KANDYAS</div>
-            <div class="sub-logo">◈ PERSONAL UNIVERSE ◈</div>
+        <!-- logo area -->
+        <div class="logo-hacker">
+            <span class="logo-main">KANDYAS</span>
+            <span class="logo-tag">#root</span>
         </div>
 
-        <!-- Social Bricks (blue rectangles with style) -->
-        <div class="social-matrix">
+        <!-- BLUE RECTANGLES (social) -->
+        <div class="brick-wall" id="socialBricks">
             <!-- telegram personal -->
-            <a href="https://t.me/i4m_SHAW" target="_blank" class="premium-brick">
-                <i class="fab fa-telegram-plane"></i>
-                <div class="brick-content">
-                    <span class="brick-label" data-i18n="telegram_label">TELEGRAM</span>
-                    <span class="brick-value" data-i18n="telegram_value">@i4m_SHAW</span>
-                </div>
+            <a href="https://t.me/i4m_SHAW" target="_blank" class="brick-blue">
+                <i class="fab fa-telegram"></i>
+                <span data-i18n="telegram_personal">@i4m_SHAW</span>
             </a>
             <!-- tiktok -->
-            <a href="https://tiktok.com/@kandyasm" target="_blank" class="premium-brick">
+            <a href="https://tiktok.com/@kandyasm" target="_blank" class="brick-blue">
                 <i class="fab fa-tiktok"></i>
-                <div class="brick-content">
-                    <span class="brick-label" data-i18n="tiktok_label">TIKTOK</span>
-                    <span class="brick-value" data-i18n="tiktok_value">@kandyasm</span>
-                </div>
+                <span data-i18n="tiktok">@kandyasm</span>
             </a>
             <!-- telegram channel -->
-            <a href="https://t.me/Kurds_Movies" target="_blank" class="premium-brick channel">
-                <i class="fab fa-telegram-plane"></i>
-                <div class="brick-content">
-                    <span class="brick-label" data-i18n="channel_label">CHANNEL</span>
-                    <span class="brick-value" data-i18n="channel_value">Kurds_Movies</span>
-                </div>
+            <a href="https://t.me/Kurds_Movies" target="_blank" class="brick-blue channel">
+                <i class="fab fa-telegram"></i>
+                <span data-i18n="telegram_channel">Kurds_Movies</span>
             </a>
         </div>
 
-        <!-- personal information galaxy -->
-        <div class="info-universe" id="infoUniverse">
+        <!-- personal info grid: ALL translations properly separated, no extra text -->
+        <div class="info-matrix" id="infoMatrix">
             <!-- name -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-user-astronaut"></i> <span data-i18n="name_label">NAW</span></div>
-                <div class="item-value" data-i18n="name_value">Kandyas</div>
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-id-card"></i> <span data-i18n="name_label">NAW</span></div>
+                <div class="cell-value" data-i18n="name_value">Kandyas</div>
             </div>
-            <!-- age & birth -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-star"></i> <span data-i18n="age_label">TEMEN / BIRTH</span></div>
-                <div class="item-value" data-i18n="age_value">19 · 18/6</div>
+            <!-- age + birth -->
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-calendar-alt"></i> <span data-i18n="age_label">TEMEN · BIRTH</span></div>
+                <div class="cell-value" data-i18n="age_value">19 · 18/6</div>
             </div>
             <!-- favourite color (green heart) -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-heart" style="color:#3aff8c;"></i> <span data-i18n="color_label">COLOUR</span></div>
-                <div class="item-value green-special" data-i18n="color_value">💚 سەوز</div>
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-heart" style="color:#45ffa5;"></i> <span data-i18n="color_label">COLOUR</span></div>
+                <div class="cell-value"><span class="green-chip" data-i18n="color_value">💚 سەوز</span></div>
             </div>
-            <!-- skills / expertise -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-code"></i> <span data-i18n="skills_label">EXPERTISE</span></div>
-                <div class="skills-cloud">
-                    <span class="skill-star">Python</span>
-                    <span class="skill-star">C</span>
-                    <span class="skill-star">C++</span>
-                    <span class="skill-star">HTML</span>
-                    <span class="skill-star">CSS</span>
-                    <span class="skill-star">دیکۆدینگ</span>
-                    <span class="skill-star">کۆدینگ</span>
+            <!-- expertise: languages + decoding/coding (as plain text, not translatable) -->
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-terminal"></i> <span data-i18n="skills_label">EXPERTISE</span></div>
+                <div class="skill-tray">
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">C</span>
+                    <span class="skill-badge">C++</span>
+                    <span class="skill-badge">HTML</span>
+                    <span class="skill-badge">CSS</span>
+                    <!-- decoding & coding (always visible, no translation needed) -->
+                    <span class="skill-badge plain">دیکۆدینگ</span>
+                    <span class="skill-badge plain">کۆدینگ</span>
                 </div>
             </div>
             <!-- religion islam -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-mosque"></i> <span data-i18n="religion_label">DIN</span></div>
-                <div class="item-value" data-i18n="religion_value">ئیسلام</div>
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-mosque"></i> <span data-i18n="religion_label">DIN</span></div>
+                <div class="cell-value" data-i18n="religion_value">ئیسلام</div>
             </div>
             <!-- medicine aspiration -->
-            <div class="cosmic-item">
-                <div class="item-header"><i class="fas fa-stethoscope"></i> <span data-i18n="study_label">ARASTE</span></div>
-                <div class="item-value" data-i18n="study_value">پزیشکی</div>
+            <div class="cell">
+                <div class="cell-header"><i class="fas fa-user-md"></i> <span data-i18n="study_label">ARASTE</span></div>
+                <div class="cell-value" data-i18n="study_value">پزیشکی</div>
             </div>
         </div>
 
-        <!-- holistic medicine & islamic footer unique -->
-        <div class="holistic-badge">
-            <div class="holistic-text">
-                <i class="fas fa-crescent-moon"></i>
-                <span data-i18n="holistic1">KANDYAS · 19 · پزیشکی · decoding</span>
-                <i class="fas fa-leaf" style="color:#40ff8c;"></i>
-                <span data-i18n="holistic2">ئیسلام · سەوز 💚</span>
-                <i class="fas fa-laptop-code"></i>
-            </div>
+        <!-- footer clean: no extra decoding or random numbers, just islam & medicine line -->
+        <div class="footer-trim">
+            <span><i class="fas fa-crescent-moon"></i> <span data-i18n="islam_line">ئیسلام · پزیشکی</span></span>
+            <span><i class="fas fa-code"></i> <span data-i18n="decode_line">دیکۆدینگ & کۆدینگ</span></span>
+            <span><i class="fas fa-heart" style="color:#53ffa8;"></i> <span data-i18n="footer_green">سەوز 💚</span></span>
         </div>
 
-        <!-- hidden translator -->
+        <!-- unique hacker touch (just aesthetic) -->
+        <div class="glitch-line">❯❯_ root@KANDYAS ~ $ █</div>
     </div>
 
     <script>
         (function() {
+            // ==================== TRANSLATIONS ====================
             const translations = {
                 ku: {
-                    telegram_label: "تەلەگرام",
-                    telegram_value: "@i4m_SHAW",
-                    tiktok_label: "تیک تۆک",
-                    tiktok_value: "@kandyasm",
-                    channel_label: "چەناڵ",
-                    channel_value: "Kurds_Movies",
+                    // bricks
+                    telegram_personal: "@i4m_SHAW",
+                    tiktok: "@kandyasm",
+                    telegram_channel: "Kurds_Movies",
+                    // headers
                     name_label: "ناو",
-                    name_value: "Kandyas",
                     age_label: "تەمەن / لەدایکبوون",
-                    age_value: "١٩ · ١٨/٦",
                     color_label: "ڕەنگی دڵخواز",
-                    color_value: "💚 سەوز",
                     skills_label: "شارەزایی",
                     religion_label: "دین",
-                    religion_value: "ئیسلام",
                     study_label: "ئاراستە",
+                    // values
+                    name_value: "Kandyas",
+                    age_value: "١٩ · ١٨/٦",
+                    color_value: "💚 سەوز",
+                    religion_value: "ئیسلام",
                     study_value: "پزیشکی",
-                    holistic1: "KANDYAS · ١٩ · پزیشکی · decoding",
-                    holistic2: "ئیسلام · سەوز 💚",
+                    // footer lines (pure)
+                    islam_line: "ئیسلام · پزیشکی",
+                    decode_line: "دیکۆدینگ & کۆدینگ",
+                    footer_green: "سەوز 💚",
                 },
                 ar: {
-                    telegram_label: "تليغرام",
-                    telegram_value: "@i4m_SHAW",
-                    tiktok_label: "تيك توك",
-                    tiktok_value: "@kandyasm",
-                    channel_label: "قناة",
-                    channel_value: "Kurds_Movies",
+                    telegram_personal: "@i4m_SHAW",
+                    tiktok: "@kandyasm",
+                    telegram_channel: "Kurds_Movies",
                     name_label: "الاسم",
-                    name_value: "Kandyas",
                     age_label: "العمر / الميلاد",
-                    age_value: "١٩ · ١٨/٦",
                     color_label: "اللون المفضل",
-                    color_value: "💚 أخضر",
                     skills_label: "المهارات",
                     religion_label: "الدين",
-                    religion_value: "الإسلام",
                     study_label: "التخصص",
+                    name_value: "Kandyas",
+                    age_value: "١٩ · ١٨/٦",
+                    color_value: "💚 أخضر",
+                    religion_value: "الإسلام",
                     study_value: "طب",
-                    holistic1: "KANDYAS · ١٩ · طب · decoding",
-                    holistic2: "الإسلام · أخضر 💚",
+                    islam_line: "الإسلام · طب",
+                    decode_line: "ديكودينغ & كودينغ",
+                    footer_green: "أخضر 💚",
                 },
                 en: {
-                    telegram_label: "TELEGRAM",
-                    telegram_value: "@i4m_SHAW",
-                    tiktok_label: "TIKTOK",
-                    tiktok_value: "@kandyasm",
-                    channel_label: "CHANNEL",
-                    channel_value: "Kurds_Movies",
+                    telegram_personal: "@i4m_SHAW",
+                    tiktok: "@kandyasm",
+                    telegram_channel: "Kurds_Movies",
                     name_label: "NAME",
-                    name_value: "Kandyas",
                     age_label: "AGE / BIRTH",
-                    age_value: "19 · 18/6",
                     color_label: "FAV COLOR",
-                    color_value: "💚 Green",
                     skills_label: "EXPERTISE",
                     religion_label: "RELIGION",
-                    religion_value: "Islam",
                     study_label: "FIELD",
+                    name_value: "Kandyas",
+                    age_value: "19 · 18/6",
+                    color_value: "💚 Green",
+                    religion_value: "Islam",
                     study_value: "Medicine",
-                    holistic1: "KANDYAS · 19 · Medicine · decoding",
-                    holistic2: "Islam · Green 💚",
+                    islam_line: "Islam · Medicine",
+                    decode_line: "Decoding & Coding",
+                    footer_green: "Green 💚",
                 }
             };
 
-            function setLanguage(lang) {
-                // update all data-i18n elements
+            function applyLanguage(lang) {
+                // update all elements with data-i18n
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
-                    if (translations[lang] && translations[lang][key]) {
-                        if (el.classList.contains('green-special')) {
-                            el.innerText = translations[lang][key];
-                        } else {
-                            el.innerText = translations[lang][key];
-                        }
+                    if (translations[lang] && translations[lang][key] !== undefined) {
+                        el.innerText = translations[lang][key];
                     }
                 });
 
-                // update active lang buttons
-                document.querySelectorAll('.lang-btn').forEach(btn => {
+                // update active class on language buttons
+                document.querySelectorAll('.lang-switch').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.lang === lang);
                 });
-
-                // for green-special we already updated via data-i18n (color_value)
             }
 
-            // attach listeners
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', e => {
-                    const lang = e.currentTarget.dataset.lang;
-                    setLanguage(lang);
+            // attach event listeners
+            document.querySelectorAll('.lang-switch').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const lang = e.target.dataset.lang;
+                    applyLanguage(lang);
                 });
             });
 
-            // set default kurdish
-            setLanguage('ku');
+            // set default (kurdish)
+            applyLanguage('ku');
         })();
     </script>
-    <!-- tiny extra spark: make the green-special also dynamic already covered -->
+
+    <!-- Matrix background effect (pure javascript) -->
+    <script>
+        (function matrixBackground() {
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+            const fontSize = 18;
+            const columns = width / fontSize;
+            const drops = [];
+            for (let x = 0; x < columns; x++) drops[x] = 1;
+
+            function draw() {
+                ctx.fillStyle = 'rgba(3, 6, 11, 0.06)';
+                ctx.fillRect(0, 0, width, height);
+                ctx.fillStyle = '#0cf5b6';
+                ctx.font = fontSize + 'px "JetBrains Mono", monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            setInterval(draw, 45);
+        })();
+    </script>
 </body>
 </html>
