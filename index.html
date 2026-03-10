@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KANDYAS | CYBER PROFILE</title>
+    <title>KANDYAS | UNIVERSE</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,11 +13,11 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
         body {
-            background: #0a0c0f;
-            font-family: 'Space Grotesk', 'JetBrains Mono', sans-serif;
+            background: #05080c;
+            font-family: 'Space Grotesk', 'Orbitron', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,489 +27,562 @@
             overflow-x: hidden;
         }
 
-        /* animated cyber background */
-        .cyber-bg {
+        /* vibrant animated background */
+        .galaxy-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(circle at 20% 50%, #1b2f3f 0%, #0a0e14 50%);
+            background: radial-gradient(ellipse at 70% 40%, #1b2e4f 0%, #0a0f19 60%);
         }
 
-        .grid-overlay {
+        .stars {
             position: absolute;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 255, 200, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 200, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: gridMove 12s linear infinite;
+                radial-gradient(2px 2px at 15px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 72px 430px, #ffb3d9, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 550px 210px, #b1f0ff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 890px 620px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 100px 850px, #ffdbb5, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 300px 950px, #c3a5ff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1200px 250px, #b0ffcf, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1400px 700px, #ffb8b8, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            background-repeat: repeat;
+            opacity: 0.8;
+            animation: twinkle 4s infinite alternate;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(40px, 40px); }
+        @keyframes twinkle {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
-        /* main card - dark glass */
-        .neo-card {
+        /* main card - colorful glass */
+        .prism-card {
             position: relative;
-            z-index: 10;
-            max-width: 1200px;
+            z-index: 20;
+            max-width: 1300px;
             width: 100%;
-            background: rgba(8, 15, 18, 0.75);
+            background: rgba(15, 20, 30, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 200, 0.25);
-            border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(0, 255, 200, 0.15) inset, 0 0 50px #00ffff1a;
-            padding: 2.8rem 2.5rem;
+            border: 1px solid rgba(255, 140, 200, 0.3);
+            border-radius: 56px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(200, 100, 255, 0.2) inset, 0 0 80px #8a2be280;
+            padding: 2.8rem 2.8rem;
         }
 
-        /* language pills */
-        .lang-panel {
+        /* language selector */
+        .lang-switcher {
             display: flex;
             justify-content: flex-end;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
-        .lang-pill {
-            background: rgba(15, 30, 30, 0.8);
-            border: 1.5px solid #2f7f78;
-            color: #bcfff0;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0.6rem 1.8rem;
-            border-radius: 100px;
+        .lang-choice {
+            background: rgba(30, 20, 50, 0.7);
+            border: 1.8px solid #ba7aff;
+            color: #f0dbff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
             cursor: pointer;
-            transition: all 0.25s;
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.8px;
+            transition: 0.25s;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
         }
 
-        .lang-pill.active {
-            background: #00ddb3;
-            border-color: #a3ffea;
-            color: #03100e;
-            font-weight: 700;
-            box-shadow: 0 0 25px #00ffc3;
-        }
-
-        .lang-pill:hover {
-            border-color: #4effd8;
-            color: #ffffff;
-            transform: scale(1.02);
-        }
-
-        /* logo with proper fit */
-        .logo-section {
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            border-left: 5px solid #00ffd0;
-            padding-left: 2rem;
-        }
-
-        .logo-name {
-            font-size: 5rem;
+        .lang-choice.active {
+            background: #c86eff;
+            border-color: #ffd7fc;
+            color: #0b0a1a;
             font-weight: 800;
-            background: linear-gradient(130deg, #c0fff0, #6effe5, #00ffc3);
+            box-shadow: 0 0 30px #f0f;
+        }
+
+        .lang-choice:hover {
+            border-color: #f3aaff;
+            background: #6b3b9e;
+            color: white;
+        }
+
+        /* logo area - clean, no extra text */
+        .logo-banner {
+            margin-bottom: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-left: 8px solid #ff66c4;
+            padding-left: 2.2rem;
+            background: linear-gradient(90deg, rgba(255,105,180,0.2) 0%, transparent 100%);
+            border-radius: 0 60px 60px 0;
+        }
+
+        .logo-big {
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffb3d9, #c289f0, #7ad0ff, #b0ffb0);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Orbitron', sans-serif;
             letter-spacing: -2px;
-            filter: drop-shadow(0 0 20px #00ffee);
+            filter: drop-shadow(0 0 25px #ff90e5);
             line-height: 1;
         }
 
-        .logo-prompt {
-            color: #4b6e68;
-            font-size: 1.2rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* social bricks - perfect blue */
-        .social-row {
+        /* social bricks - all identical now */
+        .social-cluster {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 2.2rem;
             margin: 3rem 0 3rem;
             justify-content: center;
         }
 
-        .blue-brick {
-            background: linear-gradient(160deg, #0066ff, #0039b3);
+        .cool-brick {
+            background: linear-gradient(145deg, #3b3b9a, #20207a);
             border: none;
             border-radius: 28px;
-            padding: 1.4rem 2.2rem;
+            padding: 1.5rem 2.5rem;
             display: flex;
-            align-items: center;
+-align-items: center;
             gap: 1.5rem;
             text-decoration: none;
             color: white;
-            font-size: 1.4rem;
-            font-weight: 600;
-            box-shadow: 0 18px 30px -8px #001544, 0 0 0 2px #7fc9ff inset, 0 -4px 0 #00218f inset;
-            transition: 0.2s ease;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 20px 35px -5px #0a0f2e, 0 0 0 3px #b3a0ff inset, 0 -5px 0 #1e1f6e inset;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             min-width: 250px;
             flex: 1 1 250px;
-            font-family: 'JetBrains Mono', monospace;
-            border-bottom: 3px solid #002ba6;
+            font-family: 'Space Grotesk', sans-serif;
+            border-bottom: 4px solid #3030b3;
         }
 
-        .blue-brick i {
-            font-size: 2.8rem;
-            filter: drop-shadow(2px 4px 5px black);
+        .cool-brick i {
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 6px black);
         }
 
-        .blue-brick.channel-brick {
-            background: linear-gradient(160deg, #1f4590, #10245a);
-            box-shadow: 0 18px 30px -8px #000f33, 0 0 0 2px #74bdff inset;
+        /* all bricks same style (no more channel distinction) */
+        .cool-brick:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: linear-gradient(145deg, #4f4fc9, #2a2a9e);
+            box-shadow: 0 35px 45px -8px #1b1b4b, 0 0 0 5px #eac8ff inset;
         }
 
-        .blue-brick:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 40px -8px #001a57, 0 0 0 4px #b2e4ff inset;
-        }
-
-        /* info grid - clean and aligned */
-        .profile-grid {
+        /* info grid - colorful */
+        .data-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 2rem;
-            margin: 2.8rem 0 2.8rem;
+            margin: 2.5rem 0 2.5rem;
         }
 
-        .info-tile {
-            background: rgba(10, 22, 22, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1.2px solid #1f8a7a;
-            border-radius: 30px;
+        .data-cell {
+            background: rgba(20, 15, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1.8px solid;
+            border-image-slice: 1;
+            border-radius: 36px;
             padding: 1.6rem 1.8rem;
             transition: 0.3s;
-            box-shadow: 0 15px 25px -12px #000000;
+            box-shadow: 0 18px 30px -10px black;
+            border-color: #a64dff;
         }
 
-        .info-tile:hover {
-            border-color: #00ffd0;
-            box-shadow: 0 0 30px #00ffc310;
-            background: rgba(0, 30, 28, 0.7);
+        .data-cell:nth-child(1) { border-color: #ff66a3; }
+        .data-cell:nth-child(2) { border-color: #6ee7ff; }
+        .data-cell:nth-child(3) { border-color: #a6ffa6; }
+        .data-cell:nth-child(4) { border-color: #ffb86b; }
+        .data-cell:nth-child(5) { border-color: #ff99cc; }
+        .data-cell:nth-child(6) { border-color: #b380ff; }
+
+        .data-cell:hover {
+            transform: scale(1.02) translateY(-6px);
+            box-shadow: 0 0 35px #c397ff;
         }
 
-        .tile-header {
+        .cell-head {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            color: #5effe6;
-            font-size: 1.1rem;
+            gap: 1rem;
+            color: #e2d1ff;
+            font-size: 1.2rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 1rem;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .tile-header i {
-            font-size: 1.5rem;
-            color: #00ffc3;
-        }
-
-        .tile-content {
-            color: #ffffff;
+        .cell-head i {
             font-size: 1.8rem;
-            font-weight: 600;
-            padding-left: 0.3rem;
-            word-break: break-word;
+            color: #ffb3d9;
         }
 
-        /* special green colour block - only for fav color */
-        .green-chip {
-            background: #0c472c;
-            display: inline-block;
-            padding: 0.3rem 2rem;
-            border-radius: 80px;
-            font-size: 1.8rem;
-            border: 2px solid #1aff9e;
-            box-shadow: 0 0 30px #00ff95;
-            color: #f0fff0;
-            font-weight: 600;
+        .cell-body {
+            color: #fefefe;
+            font-size: 2rem;
+            font-weight: 700;
+            padding-left: 0.4rem;
+            line-height: 1.3;
         }
 
-        /* skill tags - all non-language specific */
-        .skill-pack {
+        /* age & birth separated now */
+        .age-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .age-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .age-label {
+            font-size: 1rem;
+            color: #aed7ff;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            background: #2b2350;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+        }
+        .age-number {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #ffe9b0;
+        }
+
+        /* green favorite color - normal text, no glow */
+        .green-plain {
+            color: #aaffaa;
+            font-size: 2rem;
+            font-weight: 600;
+            text-shadow: 0 0 0 transparent;
+            background: transparent;
+            padding: 0;
+            display: inline;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* skills container - decoding & coding moved to separate table */
+        .skills-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .lang-skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem 1rem;
-            margin-top: 0.3rem;
+            gap: 0.7rem;
         }
-
-        .skill-tag {
-            background: #13302b;
-            border: 1px solid #17c9b0;
-            color: #defff5;
-            padding: 0.4rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
+        .lang-tag {
+            background: #333366;
+            border: 1px solid #aaaaff;
+            color: #f0f0ff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-size: 1.2rem;
             font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.3px;
             transition: 0.2s;
         }
+        .lang-tag:hover { background: #5656b3; }
 
-        .skill-tag:hover {
-            background: #00b8a0;
-            color: #030f0e;
+        /* separate table for decoding/coding */
+        .decode-table {
+            margin-top: 0.5rem;
+            background: #1f1f3a;
+            border-radius: 28px;
+            padding: 1.2rem 1.2rem;
+            border: 2px dashed #b57cff;
+            width: 100%;
         }
-
-        /* decoding & coding tags - neutral, no translation */
-        .skill-tag.special-tag {
-            background: #193a44;
-            border-color: #3aceff;
-            color: #e0f5ff;
-        }
-
-        /* footer - only requested items */
-        .footer-strip {
-            margin-top: 2.5rem;
-            padding: 1.5rem 2rem;
-            background: rgba(0, 15, 15, 0.7);
-            border-radius: 50px;
-            border: 1px solid #00bc9c;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            color: #b8ffee;
-            font-size: 1.2rem;
-            font-family: 'JetBrains Mono', monospace;
-            backdrop-filter: blur(5px);
-        }
-
-        .footer-item {
+        .decode-row {
             display: flex;
             align-items: center;
             gap: 1rem;
+            font-size: 1.5rem;
+            padding: 0.3rem 0;
+        }
+        .decode-icon {
+            color: #c98eff;
+            font-size: 1.8rem;
+            width: 2rem;
+        }
+        .decode-text {
+            color: #ffe1b0;
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+        }
+        /* no translation for decode texts, they stay as is */
+
+        /* footer without extra line */
+        .signature-line {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #a05eff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            color: #d0c0ff;
+            font-size: 1.3rem;
+            font-family: 'Orbitron', monospace;
         }
 
-        .footer-item i {
-            color: #1effd0;
-            font-size: 1.7rem;
+        .signature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(80, 40, 130, 0.5);
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            border: 1px solid #ffa0f0;
         }
 
-        /* unique decoration */
-        .cyber-line {
-            text-align: right;
-            margin-top: 1.5rem;
-            color: #00aa99;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            opacity: 0.5;
-            letter-spacing: 3px;
+        .signature-item i {
+            color: #ffacf0;
+            font-size: 1.8rem;
         }
 
-        /* fix for name fitting inside tile */
-        .tile-content span {
-            display: inline-block;
-            max-width: 100%;
-            overflow-wrap: break-word;
+        /* unique colorful touches */
+        .color-dots {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
         }
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff66b2;
+            box-shadow: 0 0 20px currentColor;
+        }
+        .dot:nth-child(2) { background: #6effb0; }
+        .dot:nth-child(3) { background: #9f7aff; }
+        .dot:nth-child(4) { background: #ffdb7a; }
 
         @media (max-width: 700px) {
-            .neo-card { padding: 1.8rem; }
-            .logo-name { font-size: 3.8rem; }
-            .tile-content { font-size: 1.4rem; }
+            .prism-card { padding: 1.5rem; }
+            .logo-big { font-size: 4.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="cyber-bg">
-        <div class="grid-overlay"></div>
+    <div class="galaxy-bg">
+        <div class="stars"></div>
     </div>
 
-    <div class="neo-card">
-        <!-- language selector - clean -->
-        <div class="lang-panel">
-            <button class="lang-pill active" data-lang="ku">کوردی</button>
-            <button class="lang-pill" data-lang="ar">عربي</button>
-            <button class="lang-pill" data-lang="en">English</button>
+    <div class="prism-card">
+        <!-- language pills -->
+        <div class="lang-switcher">
+            <button class="lang-choice active" data-lang="ku">کوردی</button>
+            <button class="lang-choice" data-lang="ar">عربي</button>
+            <button class="lang-choice" data-lang="en">English</button>
         </div>
 
-        <!-- logo - perfect fit -->
-        <div class="logo-section">
-            <span class="logo-name">KANDYAS</span>
-            <span class="logo-prompt">$ whoami</span>
+        <!-- logo - clean, no extra text -->
+        <div class="logo-banner">
+            <span class="logo-big">KANDYAS</span>
         </div>
 
-        <!-- social bricks - blue only -->
-        <div class="social-row">
-            <a href="https://t.me/i4m_SHAW" target="_blank" class="blue-brick">
-                <i class="fab fa-telegram-plane"></i>
+        <!-- social bricks (all identical) -->
+        <div class="social-cluster">
+            <a href="https://t.me/i4m_SHAW" target="_blank" class="cool-brick">
+                <i class="fab fa-telegram"></i>
                 <span data-i18n="telegram_user">@i4m_SHAW</span>
             </a>
-            <a href="https://tiktok.com/@kandyasm" target="_blank" class="blue-brick">
+            <a href="https://tiktok.com/@kandyasm" target="_blank" class="cool-brick">
                 <i class="fab fa-tiktok"></i>
                 <span data-i18n="tiktok_user">@kandyasm</span>
             </a>
-            <a href="https://t.me/Kurds_Movies" target="_blank" class="blue-brick channel-brick">
-                <i class="fab fa-telegram-plane"></i>
-                <span data-i18n="channel_name">Kurds_Movies</span>
+            <a href="https://t.me/Kurds_Movies" target="_blank" class="cool-brick">
+                <i class="fab fa-telegram"></i>
+                <span data-i18n="channel_user">Kurds_Movies</span>
             </a>
         </div>
 
-        <!-- personal information grid - everything neatly organized -->
-        <div class="profile-grid">
-            <!-- name tile -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-user"></i> <span data-i18n="name_header">NAW</span></div>
-                <div class="tile-content" data-i18n="name_display">Kandyas</div>
+        <!-- main info grid -->
+        <div class="data-grid">
+            <!-- name -->
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-user-astronaut"></i> <span data-i18n="name_head">NAW</span></div>
+                <div class="cell-body" data-i18n="name_body">Kandyas</div>
             </div>
 
-            <!-- age & birth -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-calendar"></i> <span data-i18n="age_header">TEMEN / BIRTH</span></div>
-                <div class="tile-content" data-i18n="age_display">19 · 18/6</div>
+            <!-- age and birth separated -->
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-calendar-alt"></i> <span data-i18n="age_head">TEMEN</span></div>
+                <div class="age-group">
+                    <div class="age-row">
+                        <span class="age-label" data-i18n="age_label">TEMEN</span>
+                        <span class="age-number" data-i18n="age_value">19 ساڵ</span>
+                    </div>
+                    <div class="age-row">
+                        <span class="age-label" data-i18n="birth_label">لەدایکبوون</span>
+                        <span class="age-number" data-i18n="birth_value">18/6</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- favourite color - green only -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-heart" style="color: #5affa5;"></i> <span data-i18n="color_header">COLOUR</span></div>
-                <div class="tile-content"><span class="green-chip" data-i18n="color_display">💚 سەوز</span></div>
+            <!-- favorite color - plain green text, no glow, no box -->
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-heart" style="color: #7affa0;"></i> <span data-i18n="color_head">COLOUR</span></div>
+                <div class="cell-body"><span class="green-plain" data-i18n="color_body">💚 سەوز</span></div>
             </div>
 
-            <!-- expertise - with decoding/coding as fixed text (not language dependent) -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-code"></i> <span data-i18n="skills_header">EXPERTISE</span></div>
-                <div class="skill-pack">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">C</span>
-                    <span class="skill-tag">C++</span>
-                    <span class="skill-tag">HTML</span>
-                    <span class="skill-tag">CSS</span>
-                    <!-- these two are not translated, stay same in all languages -->
-                    <span class="skill-tag special-tag">دیکۆدینگ</span>
-                    <span class="skill-tag special-tag">کۆدینگ</span>
+            <!-- expertise area: programming languages (translatable) + separate decoding/coding table -->
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-code"></i> <span data-i18n="skills_head">EXPERTISE</span></div>
+                <div class="skills-box">
+                    <div class="lang-skills">
+                        <span class="lang-tag">Python</span>
+                        <span class="lang-tag">C</span>
+                        <span class="lang-tag">C++</span>
+                        <span class="lang-tag">HTML</span>
+                        <span class="lang-tag">CSS</span>
+                    </div>
+                    <!-- separate decoding/coding table, never translated -->
+                    <div class="decode-table">
+                        <div class="decode-row">
+                            <i class="fas fa-microchip decode-icon"></i>
+                            <span class="decode-text">دیکۆدینگ</span>
+                        </div>
+                        <div class="decode-row">
+                            <i class="fas fa-keyboard decode-icon"></i>
+                            <span class="decode-text">کۆدینگ</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- religion islam -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-mosque"></i> <span data-i18n="religion_header">DIN</span></div>
-                <div class="tile-content" data-i18n="religion_display">ئیسلام</div>
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-mosque"></i> <span data-i18n="religion_head">DIN</span></div>
+                <div class="cell-body" data-i18n="religion_body">ئیسلام</div>
             </div>
 
-            <!-- medicine aspiration -->
-            <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-stethoscope"></i> <span data-i18n="study_header">ARASTE</span></div>
-                <div class="tile-content" data-i18n="study_display">پزیشکی</div>
+            <!-- medicine -->
+            <div class="data-cell">
+                <div class="cell-head"><i class="fas fa-stethoscope"></i> <span data-i18n="study_head">ARASTE</span></div>
+                <div class="cell-body" data-i18n="study_body">پزیشکی</div>
             </div>
         </div>
 
-        <!-- footer - only islam, medicine, green - nothing else -->
-        <div class="footer-strip">
-            <div class="footer-item"><i class="fas fa-crescent-moon"></i> <span data-i18n="footer_islam">ئیسلام</span></div>
-            <div class="footer-item"><i class="fas fa-user-md"></i> <span data-i18n="footer_medicine">پزیشکی</span></div>
-            <div class="footer-item"><i class="fas fa-heart" style="color: #4effa5;"></i> <span data-i18n="footer_green_only">سەوز 💚</span></div>
+        <!-- signature footer: only "created by @i4m_SHAW © 2026" -->
+        <div class="signature-line">
+            <div class="signature-item">
+                <i class="fas fa-bolt"></i>
+                <span>created by @i4m_SHAW © 2026</span>
+                <i class="fas fa-crown"></i>
+            </div>
         </div>
 
-        <!-- small cyberpunk detail -->
-        <div class="cyber-line">❯_ KANDYAS@profile ~ $ █</div>
+        <!-- small decorative dots -->
+        <div class="color-dots">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
     </div>
 
     <script>
         (function() {
-            // pure translations - exactly as required
-            const dict = {
+            const translations = {
                 ku: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_name: "Kurds_Movies",
-                    name_header: "ناو",
-                    age_header: "تەمەن / لەدایکبوون",
-                    color_header: "ڕەنگی دڵخواز",
-                    skills_header: "شارەزایی",
-                    religion_header: "دین",
-                    study_header: "ئاراستە",
-                    name_display: "Kandyas",
-                    age_display: "١٩ · ١٨/٦",
-                    color_display: "💚 سەوز",
-                    religion_display: "ئیسلام",
-                    study_display: "پزیشکی",
-                    footer_islam: "ئیسلام",
-                    footer_medicine: "پزیشکی",
-                    footer_green_only: "سەوز 💚",
+                    channel_user: "Kurds_Movies",
+                    name_head: "ناو",
+                    age_head: "تەمەن",
+                    color_head: "ڕەنگی دڵخواز",
+                    skills_head: "شارەزایی",
+                    religion_head: "دین",
+                    study_head: "ئاراستە",
+                    name_body: "Kandyas",
+                    age_label: "تەمەن",
+                    age_value: "١٩ ساڵ",
+                    birth_label: "لەدایکبوون",
+                    birth_value: "١٨/٦",
+                    color_body: "💚 سەوز",
+                    religion_body: "ئیسلام",
+                    study_body: "پزیشکی",
                 },
                 ar: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_name: "Kurds_Movies",
-                    name_header: "الاسم",
-                    age_header: "العمر / الميلاد",
-                    color_header: "اللون المفضل",
-                    skills_header: "المهارات",
-                    religion_header: "الدين",
-                    study_header: "التخصص",
-                    name_display: "Kandyas",
-                    age_display: "١٩ · ١٨/٦",
-                    color_display: "💚 أخضر",
-                    religion_display: "الإسلام",
-                    study_display: "طب",
-                    footer_islam: "الإسلام",
-                    footer_medicine: "طب",
-                    footer_green_only: "أخضر 💚",
+                    channel_user: "Kurds_Movies",
+                    name_head: "الاسم",
+                    age_head: "العمر",
+                    color_head: "اللون المفضل",
+                    skills_head: "المهارات",
+                    religion_head: "الدين",
+                    study_head: "التخصص",
+                    name_body: "Kandyas",
+                    age_label: "العمر",
+                    age_value: "١٩ سنة",
+                    birth_label: "الميلاد",
+                    birth_value: "١٨/٦",
+                    color_body: "💚 أخضر",
+                    religion_body: "الإسلام",
+                    study_body: "طب",
                 },
                 en: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_name: "Kurds_Movies",
-                    name_header: "NAME",
-                    age_header: "AGE / BIRTH",
-                    color_header: "FAV COLOR",
-                    skills_header: "EXPERTISE",
-                    religion_header: "RELIGION",
-                    study_header: "FIELD",
-                    name_display: "Kandyas",
-                    age_display: "19 · 18/6",
-                    color_display: "💚 Green",
-                    religion_display: "Islam",
-                    study_display: "Medicine",
-                    footer_islam: "Islam",
-                    footer_medicine: "Medicine",
-                    footer_green_only: "Green 💚",
+                    channel_user: "Kurds_Movies",
+                    name_head: "NAME",
+                    age_head: "AGE",
+                    color_head: "FAV COLOR",
+                    skills_head: "EXPERTISE",
+                    religion_head: "RELIGION",
+                    study_head: "FIELD",
+                    name_body: "Kandyas",
+                    age_label: "Age",
+                    age_value: "19 years",
+                    birth_label: "Birth",
+                    birth_value: "18/6",
+                    color_body: "💚 Green",
+                    religion_body: "Islam",
+                    study_body: "Medicine",
                 }
             };
 
-            function switchLang(lang) {
-                // update all i18n elements
+            function setLang(lang) {
                 document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.dataset.i18n;
-                    if (dict[lang] && dict[lang][key] !== undefined) {
-                        el.innerText = dict[lang][key];
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key] !== undefined) {
+                        el.innerText = translations[lang][key];
                     }
                 });
 
-                // update active language pill
-                document.querySelectorAll('.lang-pill').forEach(btn => {
+                document.querySelectorAll('.lang-choice').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.lang === lang);
                 });
             }
 
-            // attach click listeners
-            document.querySelectorAll('.lang-pill').forEach(btn => {
-                btn.addEventListener('click', e => {
+            document.querySelectorAll('.lang-choice').forEach(btn => {
+                btn.addEventListener('click', (e) => {
                     const lang = e.currentTarget.dataset.lang;
-                    switchLang(lang);
+                    setLang(lang);
                 });
             });
 
-            // start with Kurdish
-            switchLang('ku');
+            setLang('ku');
         })();
     </script>
 </body>
