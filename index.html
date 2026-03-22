@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>KANDYAS | ئەکادیمیای پزیشکی و تەکنۆلۆژیا</title>
+    <title>KANDYAS | گەنجینەی زانست و ڕەنگەکان</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -27,52 +27,53 @@
             overflow-x: hidden;
         }
 
-        /* بەشی پاشبنەمای جوڵاو - ئەفسانەیی */
-        .royal-bg {
+        /* پاشبنەمای جوڵاو - ڕەنگەکان لە هەموو شوێن */
+        .rainbow-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 30% 40%, #0a1022, #010101);
+            background: radial-gradient(ellipse at 20% 30%, #1a0c2e, #030008);
             overflow: hidden;
         }
 
-        .aurora {
+        .aurora-prism {
             position: absolute;
             width: 200%;
             height: 200%;
             top: -50%;
             left: -50%;
-            background: radial-gradient(circle at 20% 30%, rgba(0, 210, 200, 0.2), transparent 60%),
-                        radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.15), transparent 70%);
-            animation: auroraFlow 24s infinite alternate ease-in-out;
-            filter: blur(70px);
+            background: radial-gradient(circle at 20% 40%, rgba(255, 80, 120, 0.25), transparent 55%),
+                        radial-gradient(circle at 80% 70%, rgba(80, 200, 255, 0.3), transparent 60%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 210, 80, 0.2), transparent 65%),
+                        radial-gradient(circle at 70% 20%, rgba(180, 80, 255, 0.2), transparent 70%);
+            animation: prismFlow 26s infinite alternate ease-in-out;
+            filter: blur(75px);
             mix-blend-mode: screen;
         }
 
-        @keyframes auroraFlow {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
-            100% { transform: translate(-5%, -3%) rotate(1deg); opacity: 0.9; }
+        @keyframes prismFlow {
+            0% { transform: translate(0%, 0%) rotate(0deg); opacity: 0.6; }
+            100% { transform: translate(-6%, -4%) rotate(2deg); opacity: 1; }
         }
 
-        .grid-overlay {
+        .grid-rainbow {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(rgba(0, 255, 200, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 255, 200, 0.05) 1px, transparent 1px);
-            background-size: 55px 55px;
-            animation: gridShift 20s linear infinite;
+            background-image: linear-gradient(rgba(255, 100, 150, 0.08) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(100, 200, 255, 0.08) 1px, transparent 1px);
+            background-size: 52px 52px;
+            animation: gridWobble 22s linear infinite;
         }
 
-        @keyframes gridShift {
+        @keyframes gridWobble {
             0% { transform: translate(0, 0); }
-            100% { transform: translate(55px, 55px); }
+            100% { transform: translate(52px, 52px); }
         }
 
-        /* کانڤاسی خاڵەکانی ئاوریشم */
         #particle-canvas {
             position: absolute;
             top: 0;
@@ -83,34 +84,54 @@
             z-index: 1;
         }
 
-        /* کارتی سەرەکی - شووشەی پڕ شکۆ */
+        /* کارتی سەرەکی - شووشەی پڕ ڕەنگ */
         .neo-card {
             position: relative;
             z-index: 20;
             max-width: 1300px;
             width: 100%;
-            background: rgba(8, 14, 22, 0.65);
-            backdrop-filter: blur(20px);
-            border-radius: 48px;
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.5), 0 0 0 1.5px rgba(255, 215, 0, 0.3) inset, 0 0 45px rgba(0, 200, 200, 0.2);
+            background: rgba(6, 12, 22, 0.6);
+            backdrop-filter: blur(18px);
+            border-radius: 56px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 200, 100, 0.4) inset;
             padding: 2rem 2rem;
             transition: all 0.4s;
-            border: 1px solid rgba(255, 220, 100, 0.4);
+            border: 1px solid rgba(255, 180, 80, 0.5);
         }
 
-        /* پانێلی زمان - فەرمی و خوێندەوار */
+        .neo-card:hover {
+            box-shadow: 0 45px 90px rgba(0, 0, 0, 0.6), 0 0 0 3px rgba(255, 210, 120, 0.6) inset;
+        }
+
+        /* هێڵی سنووری ڕەنگاوڕەنگ */
+        .neo-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 58px;
+            background: linear-gradient(110deg, #ff4d6d, #ffb347, #ffd966, #6effb0, #4d9eff, #c56eff);
+            z-index: -1;
+            opacity: 0.3;
+            transition: opacity 0.5s;
+            filter: blur(12px);
+        }
+        .neo-card:hover::after {
+            opacity: 0.7;
+        }
+
+        /* پانێلی زمان */
         .lang-panel {
             display: flex;
             justify-content: flex-end;
             gap: 0.8rem;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .lang-pill {
-            background: rgba(15, 25, 30, 0.7);
-            border: 1px solid #e4b363;
-            color: #ffefcf;
+            background: rgba(20, 25, 40, 0.7);
+            border: 1px solid #ffbc6e;
+            color: #fff2df;
             font-size: 0.9rem;
             font-weight: 600;
             padding: 0.45rem 1.5rem;
@@ -118,71 +139,53 @@
             cursor: pointer;
             transition: 0.25s;
             font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
         }
 
         .lang-pill.active {
-            background: linear-gradient(115deg, #f5b042, #e09d32);
-            border-color: #fff3cf;
-            color: #0a0a18;
-            font-weight: 700;
-            box-shadow: 0 0 18px rgba(255, 180, 50, 0.6);
+            background: linear-gradient(125deg, #ffaa44, #ff884d);
+            border-color: #fff0cc;
+            color: #121212;
+            font-weight: 800;
+            box-shadow: 0 0 18px #ffaa55;
         }
 
-        /* لۆگۆ - گونجاوی مۆبایل و دیزاینی پڕ ڕێز */
+        /* لۆگۆ - سادەکراو، بێ whoami زیادە */
         .logo-section {
             display: flex;
-            align-items: baseline;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 2rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 2px solid rgba(255, 210, 90, 0.5);
-        }
-
-        .logo-main {
-            display: flex;
             align-items: baseline;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(255, 200, 100, 0.6);
         }
 
         .logo-name {
-            font-size: clamp(2.7rem, 10vw, 4.8rem);
+            font-size: clamp(2.8rem, 9vw, 5rem);
             font-weight: 800;
-            background: linear-gradient(135deg, #FFF2C9, #FFE3A4, #B0FFEC);
+            background: linear-gradient(135deg, #FFF2C0, #FFDC9A, #AAFFE6, #FFA07A);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-family: 'JetBrains Mono', monospace;
             letter-spacing: -1px;
-            filter: drop-shadow(0 0 8px #00ccaa);
+            filter: drop-shadow(0 0 12px #ffbc6e);
             line-height: 1.1;
         }
 
-        .whoami-badge {
-            background: rgba(0, 30, 35, 0.65);
-            padding: 0.2rem 1rem;
-            border-radius: 100px;
+        /* هیچ whoami زیادە لەم بەشەدا نییە */
+        .logo-extra {
             font-size: 1rem;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            color: #daf6ff;
-            border-left: 3px solid #ffcf6e;
-            backdrop-filter: blur(4px);
-            white-space: nowrap;
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            color: #ffefcf;
+            font-family: monospace;
         }
 
-        .cyber-emblem {
-            font-size: 1.2rem;
-            color: #ffda99;
-            opacity: 0.8;
-            letter-spacing: 1px;
-        }
-
-        /* بلۆکی سۆشیاڵ - شووشەی زێڕین */
+        /* سۆشیاڵ میدیا - ڕەنگی شەیدا */
         .social-row {
             display: flex;
             flex-wrap: wrap;
@@ -191,58 +194,85 @@
             justify-content: center;
         }
 
-        .blue-brick {
-            background: linear-gradient(125deg, #102b55, #041a3a);
-            border-radius: 48px;
+        .rainbow-brick {
+            background: linear-gradient(125deg, #2a1b4d, #121d3a);
+            border-radius: 50px;
             padding: 1rem 1.8rem;
             display: flex;
             align-items: center;
             gap: 1.2rem;
             text-decoration: none;
-            color: #fef6e6;
+            color: #fff9ef;
             font-size: 1.2rem;
             font-weight: 600;
-            box-shadow: 0 18px 25px -12px #00000066, 0 0 0 1px #ffcf6e inset;
+            box-shadow: 0 18px 28px -12px #00000066, 0 0 0 1px #ffbd71 inset;
             transition: 0.3s;
             min-width: 220px;
             flex: 1 1 220px;
             font-family: 'JetBrains Mono', monospace;
             backdrop-filter: blur(2px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .blue-brick i {
+        .rainbow-brick::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,220,100,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .rainbow-brick:hover::before {
+            left: 100%;
+        }
+
+        .rainbow-brick i {
             font-size: 2.2rem;
-            transition: 0.2s;
+            filter: drop-shadow(0 0 3px gold);
         }
 
-        .blue-brick:hover {
+        .rainbow-brick:hover {
             transform: translateY(-8px);
-            background: linear-gradient(125deg, #1f3f72, #08234d);
-            box-shadow: 0 28px 35px -12px #000000, 0 0 0 2px #ffda88 inset;
+            background: linear-gradient(125deg, #3a2c6e, #192a55);
+            box-shadow: 0 28px 38px -12px #000, 0 0 0 2px #ffd894 inset;
         }
 
-        /* گرید زانیاری فەرمی */
+        /* گرید زانیاری - ڕەنگە جیاوازەکان */
         .profile-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.8rem;
-            margin: 2rem 0 2.2rem;
+            margin: 2rem 0 2rem;
         }
 
         .info-tile {
-            background: rgba(12, 20, 28, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 200, 110, 0.4);
+            background: rgba(12, 20, 32, 0.6);
+            backdrop-filter: blur(12px);
             border-radius: 32px;
-            padding: 1.4rem 1.5rem;
+            padding: 1.5rem;
             transition: 0.25s;
+            border: 1px solid;
+            border-image: linear-gradient(145deg, #ff9966, #ff5e62) 1;
+            box-shadow: 0 12px 28px -12px black;
         }
 
+        /* هەر بلۆکێک ڕەنگی سنووری تایبەتی خۆی */
+        .info-tile:nth-child(1) { border-color: #ff7e5e; }
+        .info-tile:nth-child(2) { border-color: #f6d365; }
+        .info-tile:nth-child(3) { border-color: #6bffb8; }
+        .info-tile:nth-child(4) { border-color: #6ec3ff; }
+        .info-tile:nth-child(5) { border-color: #c084fc; }
+        .info-tile:nth-child(6) { border-color: #f97393; }
+
         .info-tile:hover {
-            border-color: #ffd98c;
-            background: rgba(20, 35, 45, 0.7);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px -10px black;
+            transform: translateY(-6px);
+            background: rgba(20, 35, 48, 0.75);
+            box-shadow: 0 20px 35px -10px black;
+            border-color: #ffdd99;
         }
 
         .tile-header {
@@ -260,30 +290,32 @@
 
         .tile-header i {
             font-size: 1.4rem;
-            color: #ffcd7e;
+            background: linear-gradient(135deg, #ffb347, #ff7e5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .tile-content {
             color: #ffffff;
             font-size: 1.6rem;
             font-weight: 600;
-            word-break: break-word;
             display: flex;
             flex-wrap: wrap;
             align-items: baseline;
             gap: 0.6rem;
         }
 
-        /* بەشی تەمەن و بەروار - جیا کراوە */
+        /* تەمەن و بەروار جیا کراوە */
         .age-block {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.2rem;
         }
         .age-number {
-            font-size: 1.9rem;
+            font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(145deg, #fff, #c8ffd0);
+            background: linear-gradient(145deg, #fff2b5, #b5ffcf);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -291,21 +323,21 @@
         .birth-text {
             font-size: 1rem;
             font-family: monospace;
-            background: rgba(0, 55, 50, 0.5);
-            padding: 0.2rem 0.8rem;
-            border-radius: 50px;
+            background: rgba(0, 50, 40, 0.6);
+            padding: 0.2rem 0.9rem;
+            border-radius: 60px;
             display: inline-block;
             border-left: 3px solid #ffcd7e;
         }
 
         .green-chip {
-            background: linear-gradient(145deg, #0c7448, #094d32);
+            background: linear-gradient(145deg, #0d7a4a, #0a5836);
             display: inline-block;
             padding: 0.2rem 1.8rem;
             border-radius: 70px;
             font-size: 1.5rem;
-            border: 1px solid #95ffb5;
-            box-shadow: 0 0 18px #58ffa3;
+            border: 1px solid #b5ffb0;
+            box-shadow: 0 0 22px #5effaa;
             color: #f0fff0;
             font-weight: 700;
         }
@@ -313,16 +345,15 @@
         .skill-pack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 0.2rem;
+            gap: 0.7rem;
         }
 
         .skill-tag {
-            background: rgba(0, 35, 40, 0.75);
-            border: 1px solid #ffcf7a;
-            color: #fff7ea;
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
+            background: rgba(20, 45, 55, 0.8);
+            border: 1px solid #ffbc6e;
+            color: #fffaec;
+            padding: 0.4rem 1.4rem;
+            border-radius: 60px;
             font-size: 0.9rem;
             font-weight: 500;
             font-family: 'JetBrains Mono', monospace;
@@ -330,23 +361,30 @@
         }
 
         .skill-tag.special-tag {
-            background: #004d55b3;
-            border-color: #7effe0;
+            background: #185d6e;
+            border-color: #7effe6;
+            color: #e2ffff;
         }
 
-        /* فووتهری نوێ - فەرمی و خۆش */
+        .skill-tag:hover {
+            background: #ffb347;
+            color: #111;
+            transform: scale(1.02);
+        }
+
+        /* فووتهری سێ بەش (ئیسلام، پزیشکی، سەوز) */
         .footer-elegant {
             margin-top: 2rem;
             padding: 1.2rem 1.8rem;
-            background: rgba(0, 18, 20, 0.65);
-            border-radius: 48px;
-            border: 1px solid #ffcd7e;
+            background: rgba(0, 20, 25, 0.7);
+            border-radius: 50px;
+            border: 1px solid #ffcd8c;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(6px);
         }
 
         .footer-item {
@@ -356,37 +394,19 @@
             font-size: 1rem;
             font-weight: 500;
             background: rgba(0,0,0,0.25);
-            padding: 0.3rem 1rem;
+            padding: 0.3rem 1.2rem;
             border-radius: 60px;
-            color: #ffecce;
+            color: #fff2df;
         }
 
         .footer-item i {
-            font-size: 1.3rem;
-            color: #ffda85;
+            font-size: 1.4rem;
+            filter: drop-shadow(0 0 2px #ffbc6e);
         }
 
-        /* شێوازی دیکۆرە تایبەتەکەی کۆتایی (جێگای KANDYAS royal لابرا) */
+        /* هیچ وتەی کۆتایی و هیچ whoami زیادە نییە */
         .signature-quote {
-            text-align: center;
-            margin-top: 1.8rem;
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: #b9cdb0;
-            letter-spacing: 1px;
-            border-top: 1px dashed rgba(255, 210, 90, 0.4);
-            padding-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .quote-text {
-            font-style: italic;
-            background: none;
-            color: #d9e6cf;
-            font-size: 0.9rem;
+            display: none;
         }
 
         @media (max-width: 650px) {
@@ -396,10 +416,6 @@
             .logo-section {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            .whoami-badge {
-                white-space: normal;
-                font-size: 0.85rem;
             }
             .tile-content {
                 font-size: 1.3rem;
@@ -415,9 +431,9 @@
     </style>
 </head>
 <body>
-    <div class="royal-bg">
-        <div class="aurora"></div>
-        <div class="grid-overlay"></div>
+    <div class="rainbow-bg">
+        <div class="aurora-prism"></div>
+        <div class="grid-rainbow"></div>
         <canvas id="particle-canvas"></canvas>
     </div>
 
@@ -429,44 +445,39 @@
             <button class="lang-pill" data-lang="en">English</button>
         </div>
 
-        <!-- لۆگۆ و whoami بە شێوەیەکی گونجاوی مۆبایل -->
+        <!-- لۆگۆ - بێ هیچ whoami زیادە، تەنیا ناو -->
         <div class="logo-section">
-            <div class="logo-main">
-                <span class="logo-name">KANDYAS</span>
-                <span class="whoami-badge" data-i18n="whoami_label">$ whoami</span>
-            </div>
-            <div class="cyber-emblem">
-                <i class="fas fa-microchip"></i>  <span data-i18n="subtitle">digital · intellect</span>
-            </div>
+            <span class="logo-name">KANDYAS</span>
+            <span class="logo-extra"><i class="fas fa-infinity"></i>  vision</span>
         </div>
 
-        <!-- سۆشیاڵ میدیا -->
+        <!-- سۆشیاڵ میدیا - ڕەنگاوڕەنگ -->
         <div class="social-row">
-            <a href="https://t.me/i4m_SHAW" target="_blank" class="blue-brick">
+            <a href="https://t.me/i4m_SHAW" target="_blank" class="rainbow-brick">
                 <i class="fab fa-telegram-plane"></i>
                 <span data-i18n="telegram_user">@i4m_SHAW</span>
             </a>
-            <a href="https://tiktok.com/@kandyasm" target="_blank" class="blue-brick">
+            <a href="https://tiktok.com/@kandyasm" target="_blank" class="rainbow-brick">
                 <i class="fab fa-tiktok"></i>
                 <span data-i18n="tiktok_user">@kandyasm</span>
             </a>
-            <a href="https://t.me/Kurds_Movies" target="_blank" class="blue-brick">
+            <a href="https://t.me/Kurds_Movies" target="_blank" class="rainbow-brick">
                 <i class="fab fa-telegram-plane"></i>
                 <span data-i18n="channel_name">Kurds_Movies</span>
             </a>
         </div>
 
-        <!-- زانیاری فەرمی کەسی -->
+        <!-- زانیاری فەرمی -->
         <div class="profile-grid">
             <!-- ناو -->
             <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-id-card"></i> <span data-i18n="name_header">ناو</span></div>
+                <div class="tile-header"><i class="fas fa-user-astronaut"></i> <span data-i18n="name_header">ناو</span></div>
                 <div class="tile-content" data-i18n="name_display">Kandyas</div>
             </div>
 
             <!-- تەمەن و بەروار جیا کراوە -->
             <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-cake-candles"></i> <span data-i18n="age_header">تەمەن & لەدایکبوون</span></div>
+                <div class="tile-header"><i class="fas fa-gem"></i> <span data-i18n="age_header">تەمەن & لەدایکبوون</span></div>
                 <div class="tile-content">
                     <div class="age-block">
                         <span class="age-number" data-i18n="age_years">١٩ ساڵ</span>
@@ -475,15 +486,15 @@
                 </div>
             </div>
 
-            <!-- ڕەنگی دڵخواز - سەوز -->
+            <!-- ڕەنگی دڵخواز سەوز -->
             <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-seedling"></i> <span data-i18n="color_header">ڕەنگی دڵخواز</span></div>
+                <div class="tile-header"><i class="fas fa-heart"></i> <span data-i18n="color_header">ڕەنگی دڵخواز</span></div>
                 <div class="tile-content"><span class="green-chip" data-i18n="color_display">💚 سەوز</span></div>
             </div>
 
             <!-- شارەزایی تەکنیکی -->
             <div class="info-tile">
-                <div class="tile-header"><i class="fas fa-cogs"></i> <span data-i18n="skills_header">شارەزایی</span></div>
+                <div class="tile-header"><i class="fas fa-microchip"></i> <span data-i18n="skills_header">شارەزایی</span></div>
                 <div class="skill-pack">
                     <span class="skill-tag">Python</span>
                     <span class="skill-tag">C</span>
@@ -511,23 +522,17 @@
         <div class="footer-elegant">
             <div class="footer-item"><i class="fas fa-crescent-moon"></i> <span data-i18n="footer_islam">ئیسلام</span></div>
             <div class="footer-item"><i class="fas fa-user-md"></i> <span data-i18n="footer_medicine">پزیشکی</span></div>
-            <div class="footer-item"><i class="fas fa-heart" style="color: #9bffb0;"></i> <span data-i18n="footer_green_only">سەوز 💚</span></div>
+            <div class="footer-item"><i class="fas fa-leaf" style="color: #aaffaa;"></i> <span data-i18n="footer_green_only">سەوز 💚</span></div>
         </div>
 
-        <!-- شوێنی نوێی کۆتایی: وتەیەکی پڕ شکۆ و لابردنی "KANDYAS royal" -->
-        <div class="signature-quote">
-            <span class="quote-text"><i class="fas fa-quote-left"></i> <span data-i18n="footer_motto">بە عەزم و ڕەوشت، ڕێگای پزیشکی و تەکنۆلۆژیا</span> <i class="fas fa-quote-right"></i></span>
-            <span class="quote-text">⚕️  ‌KANDYAS  |  since 2006</span>
-        </div>
+        <!-- هیچ وتەیەکی زیادە نییە، بەتەواوی پاک کراوە -->
     </div>
 
     <script>
         (function() {
-            // فەرهەنگی وەرگێڕان (بە هەر سێ زمان)
+            // فەرهەنگی وەرگێڕان (هەر سێ زمان)
             const dict = {
                 ku: {
-                    whoami_label: "$ whoami",
-                    subtitle: "digital · intellect",
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
                     channel_name: "Kurds_Movies",
@@ -545,12 +550,9 @@
                     study_display: "پزیشکی",
                     footer_islam: "ئیسلام",
                     footer_medicine: "پزیشکی",
-                    footer_green_only: "سەوز 💚",
-                    footer_motto: "بە عەزم و ڕەوشت، ڕێگای پزیشکی و تەکنۆلۆژیا"
+                    footer_green_only: "سەوز 💚"
                 },
                 ar: {
-                    whoami_label: "$ من أنا",
-                    subtitle: "رقمي · فكري",
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
                     channel_name: "Kurds_Movies",
@@ -568,18 +570,15 @@
                     study_display: "الطب",
                     footer_islam: "الإسلام",
                     footer_medicine: "الطب",
-                    footer_green_only: "أخضر 💚",
-                    footer_motto: "بالإرادة والأخلاق، طريق الطب والتكنولوجيا"
+                    footer_green_only: "أخضر 💚"
                 },
                 en: {
-                    whoami_label: "$ whoami",
-                    subtitle: "digital · intellect",
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
                     channel_name: "Kurds_Movies",
                     name_header: "NAME",
                     age_header: "AGE & BIRTH",
-                    color_header: "FAVORITE COLOR",
+                    color_header: "FAV COLOR",
                     skills_header: "EXPERTISE",
                     religion_header: "RELIGION",
                     study_header: "FIELD",
@@ -591,8 +590,7 @@
                     study_display: "Medicine",
                     footer_islam: "Islam",
                     footer_medicine: "Medicine",
-                    footer_green_only: "Green 💚",
-                    footer_motto: "With determination & ethics, the path of medicine & technology"
+                    footer_green_only: "Green 💚"
                 }
             };
 
@@ -616,12 +614,12 @@
             });
             switchLang('ku');
 
-            // پارتیکڵەکانی پاشبنەما (ئەستێرەی جوڵاو)
+            // پارتیکڵەکانی پاشبنەما (ڕەنگاوڕەنگ)
             const canvas = document.getElementById('particle-canvas');
             let ctx = canvas.getContext('2d');
             let width, height;
             let particles = [];
-            const PARTICLE_NUM = 120;
+            const PARTICLE_NUM = 150;
 
             function resizeCanvas() {
                 width = window.innerWidth;
@@ -637,11 +635,12 @@
                     particles.push({
                         x: Math.random() * width,
                         y: Math.random() * height,
-                        rad: Math.random() * 2.2 + 1,
+                        rad: Math.random() * 2.8 + 1,
                         alpha: Math.random() * 0.5 + 0.2,
                         vx: (Math.random() - 0.5) * 0.2,
-                        vy: (Math.random() - 0.5) * 0.15,
-                        phase: Math.random() * Math.PI * 2
+                        vy: (Math.random() - 0.5) * 0.12,
+                        phase: Math.random() * Math.PI * 2,
+                        hue: Math.random() * 360
                     });
                 }
             }
@@ -649,16 +648,18 @@
             function drawParticles() {
                 if (!ctx) return;
                 ctx.clearRect(0, 0, width, height);
+                const now = Date.now();
                 for (let p of particles) {
                     ctx.beginPath();
-                    let glow = 0.6 + Math.sin(Date.now() * 0.002 + p.phase) * 0.3;
-                    ctx.arc(p.x, p.y, p.rad + glow * 0.5, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 210, 120, ${p.alpha * (0.5 + glow * 0.3)})`;
+                    let glow = 0.5 + Math.sin(now * 0.002 + p.phase) * 0.4;
+                    let hueShift = (p.hue + now * 0.1) % 360;
+                    ctx.arc(p.x, p.y, p.rad + glow * 0.8, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${hueShift}, 80%, 65%, ${p.alpha * 0.7})`;
                     ctx.fill();
-                    ctx.shadowBlur = 6;
-                    ctx.shadowColor = "#ffcf7a";
-                    ctx.fillStyle = `rgba(100, 220, 180, ${p.alpha * 0.5})`;
-                    ctx.arc(p.x, p.y, p.rad * 0.7, 0, Math.PI * 2);
+                    ctx.shadowBlur = 9;
+                    ctx.shadowColor = `hsl(${hueShift}, 100%, 70%)`;
+                    ctx.fillStyle = `hsla(${hueShift}, 85%, 60%, ${p.alpha * 0.5})`;
+                    ctx.arc(p.x, p.y, p.rad * 0.6, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.shadowBlur = 0;
                     p.x += p.vx;
