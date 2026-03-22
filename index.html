@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KANDYAS | UNIVERSE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KANDYAS | 皇家赛博空间</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,11 +13,11 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
         body {
-            background: #05080c;
-            font-family: 'Space Grotesk', 'Orbitron', sans-serif;
+            background: #03050b;
+            font-family: 'Space Grotesk', 'JetBrains Mono', monospace;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,564 +25,694 @@
             padding: 1.5rem;
             position: relative;
             overflow-x: hidden;
+            cursor: default;
         }
 
-        /* vibrant animated background */
-        .galaxy-bg {
+        /* ========== 皇者動態背景 ========== */
+        .royal-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            background: radial-gradient(ellipse at 70% 40%, #1b2e4f 0%, #0a0f19 60%);
+            background: radial-gradient(ellipse at 40% 40%, #0a0f2a 0%, #020408 100%);
+            overflow: hidden;
         }
 
-        .stars {
+        /* 流動極光層 */
+        .aurora {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 30% 40%, rgba(0, 255, 200, 0.15), transparent 60%),
+                        radial-gradient(circle at 70% 80%, rgba(150, 0, 255, 0.2), transparent 70%),
+                        radial-gradient(circle at 20% 70%, rgba(255, 215, 0, 0.1), transparent 50%);
+            animation: auroraFlow 22s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            filter: blur(60px);
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes auroraFlow {
+            0% { transform: translate(0%, 0%) rotate(0deg); opacity: 0.6; }
+            100% { transform: translate(-8%, -5%) rotate(2deg); opacity: 1; }
+        }
+
+        /* 動態網格 + 光線掃描 */
+        .grid-overlay {
             position: absolute;
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(2px 2px at 15px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 72px 430px, #ffb3d9, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 550px 210px, #b1f0ff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 890px 620px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 100px 850px, #ffdbb5, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 300px 950px, #c3a5ff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1200px 250px, #b0ffcf, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1400px 700px, #ffb8b8, rgba(0,0,0,0));
-            background-size: 200px 200px;
-            background-repeat: repeat;
-            opacity: 0.8;
-            animation: twinkle 4s infinite alternate;
+                linear-gradient(rgba(0, 255, 200, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 200, 0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridShift 18s linear infinite;
+            opacity: 0.5;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        /* main card - colorful glass */
-        .prism-card {
+        /* 粒子畫布 (星辰) */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 漂浮光球裝飾 */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 255, 200, 0.4), rgba(0, 100, 100, 0));
+            filter: blur(40px);
+            z-index: 1;
+            pointer-events: none;
+            animation: floatOrb 14s infinite alternate ease-in-out;
+        }
+
+        .orb1 { width: 300px; height: 300px; top: 10%; left: -100px; animation-duration: 18s; background: radial-gradient(circle, rgba(0, 200, 255, 0.25), transparent); }
+        .orb2 { width: 450px; height: 450px; bottom: -150px; right: -120px; animation-duration: 22s; background: radial-gradient(circle, rgba(200, 0, 255, 0.2), transparent); }
+        .orb3 { width: 200px; height: 200px; top: 60%; left: 70%; animation-duration: 12s; background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent); }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            100% { transform: translate(40px, -30px) scale(1.2); opacity: 0.7; }
+        }
+
+        /* 主卡 - 奢華玻璃幻彩 */
+        .neo-card {
             position: relative;
             z-index: 20;
             max-width: 1300px;
             width: 100%;
-            background: rgba(15, 20, 30, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 140, 200, 0.3);
+            background: rgba(6, 12, 20, 0.6);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border-radius: 56px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(200, 100, 255, 0.2) inset, 0 0 80px #8a2be280;
-            padding: 2.8rem 2.8rem;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(0, 255, 200, 0.25) inset, 0 0 60px rgba(0, 255, 200, 0.2);
+            padding: 2.8rem 2.5rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        /* language selector */
-        .lang-switcher {
+        .neo-card:hover {
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), 0 0 0 3px rgba(0, 255, 200, 0.5) inset, 0 0 90px #00ffc330;
+            transform: translateY(-5px);
+        }
+
+        /* 金色流線邊框動畫 */
+        .neo-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(120deg, #ffd966, #00ffc3, #ffaa33, #00ffff);
+            border-radius: 58px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s;
+            filter: blur(12px);
+        }
+
+        .neo-card:hover::before {
+            opacity: 0.4;
+            animation: borderGlow 1.8s infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: blur(12px) brightness(1); }
+            100% { filter: blur(18px) brightness(1.3); }
+        }
+
+        /* 語言按鈕 - 皇家質感 */
+        .lang-panel {
             display: flex;
             justify-content: flex-end;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
-        .lang-choice {
-            background: rgba(30, 20, 50, 0.7);
-            border: 1.8px solid #ba7aff;
-            color: #f0dbff;
-            font-size: 1.1rem;
+        .lang-pill {
+            background: rgba(10, 20, 25, 0.8);
+            border: 1px solid #ffd966;
+            color: #ffecb3;
+            font-size: 1rem;
             font-weight: 600;
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
+            padding: 0.6rem 1.8rem;
+            border-radius: 100px;
             cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
             letter-spacing: 1px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
 
-        .lang-choice.active {
-            background: #c86eff;
-            border-color: #ffd7fc;
-            color: #0b0a1a;
+        .lang-pill.active {
+            background: linear-gradient(135deg, #ffd966, #ffb347);
+            border-color: #ffffff;
+            color: #0a0a1a;
             font-weight: 800;
-            box-shadow: 0 0 30px #f0f;
+            box-shadow: 0 0 25px rgba(255, 200, 80, 0.7);
+            text-shadow: 0 0 2px gold;
         }
 
-        .lang-choice:hover {
-            border-color: #f3aaff;
-            background: #6b3b9e;
-            color: white;
+        .lang-pill:hover {
+            transform: translateY(-3px);
+            border-color: #ffea9e;
+            background: rgba(255, 200, 100, 0.2);
+            color: #ffefcf;
         }
 
-        /* logo area - clean, no extra text */
-        .logo-banner {
-            margin-bottom: 2.2rem;
+        /* logo 皇室風格 */
+        .logo-section {
+            margin-bottom: 2.8rem;
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            border-left: 8px solid #ff66c4;
-            padding-left: 2.2rem;
-            background: linear-gradient(90deg, rgba(255,105,180,0.2) 0%, transparent 100%);
-            border-radius: 0 60px 60px 0;
+            align-items: baseline;
+            gap: 1rem;
+            border-left: 6px solid #ffd966;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .logo-section::after {
+            content: '👑';
+            position: absolute;
+            right: 20px;
+            top: -10px;
+            font-size: 2.2rem;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 6px gold);
         }
 
-        .logo-big {
-            font-size: 6rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ffb3d9, #c289f0, #7ad0ff, #b0ffb0);
+        .logo-name {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFF5CC, #FFE29A, #00FFD0, #B6FFE0);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: -2px;
-            filter: drop-shadow(0 0 25px #ff90e5);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -1px;
+            filter: drop-shadow(0 0 15px #00ffcc);
             line-height: 1;
         }
 
-        /* social bricks - all identical now */
-        .social-cluster {
+        .logo-prompt {
+            color: #ffdf99;
+            font-size: 1.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0,0,0,0.4);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            letter-spacing: 1px;
+        }
+
+        /* 社群磚塊 - 奢華寶石感 */
+        .social-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 2.2rem;
+            gap: 2rem;
             margin: 3rem 0 3rem;
             justify-content: center;
         }
 
-        .cool-brick {
-            background: linear-gradient(145deg, #3b3b9a, #20207a);
+        .blue-brick {
+            background: linear-gradient(145deg, #0f2c5c, #031b44);
             border: none;
-            border-radius: 28px;
-            padding: 1.5rem 2.5rem;
+            border-radius: 40px;
+            padding: 1.4rem 2rem;
             display: flex;
--align-items: center;
+            align-items: center;
             gap: 1.5rem;
             text-decoration: none;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-            box-shadow: 0 20px 35px -5px #0a0f2e, 0 0 0 3px #b3a0ff inset, 0 -5px 0 #1e1f6e inset;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #f5f9ff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255, 215, 0, 0.5) inset;
+            transition: all 0.3s ease;
             min-width: 250px;
             flex: 1 1 250px;
-            font-family: 'Space Grotesk', sans-serif;
-            border-bottom: 4px solid #3030b3;
+            font-family: 'JetBrains Mono', monospace;
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .cool-brick i {
-            font-size: 3rem;
-            filter: drop-shadow(0 4px 6px black);
+        .blue-brick i {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 2px 5px black);
+            transition: 0.2s;
         }
 
-        /* all bricks same style (no more channel distinction) */
-        .cool-brick:hover {
+        .blue-brick::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,235,130,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .blue-brick:hover::before {
+            left: 100%;
+        }
+
+        .blue-brick:hover {
             transform: translateY(-12px) scale(1.02);
-            background: linear-gradient(145deg, #4f4fc9, #2a2a9e);
-            box-shadow: 0 35px 45px -8px #1b1b4b, 0 0 0 5px #eac8ff inset;
+            box-shadow: 0 35px 45px -12px #001844, 0 0 0 2px #ffd966 inset;
+            background: linear-gradient(145deg, #1f3f7a, #07225a);
         }
 
-        /* info grid - colorful */
-        .data-grid {
+        .channel-brick {
+            background: linear-gradient(145deg, #192f5a, #082244);
+            box-shadow: 0 20px 30px -10px black, 0 0 0 1px #ffbf69 inset;
+        }
+
+        /* 資訊網格 高貴質感 */
+        .profile-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 2rem;
-            margin: 2.5rem 0 2.5rem;
+            margin: 3rem 0 2.8rem;
         }
 
-        .data-cell {
-            background: rgba(20, 15, 40, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1.8px solid;
-            border-image-slice: 1;
-            border-radius: 36px;
+        .info-tile {
+            background: rgba(12, 22, 28, 0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 200, 100, 0.5);
+            border-radius: 32px;
             padding: 1.6rem 1.8rem;
-            transition: 0.3s;
-            box-shadow: 0 18px 30px -10px black;
-            border-color: #a64dff;
+            transition: all 0.35s;
+            box-shadow: 0 12px 25px -12px #000000;
         }
 
-        .data-cell:nth-child(1) { border-color: #ff66a3; }
-        .data-cell:nth-child(2) { border-color: #6ee7ff; }
-        .data-cell:nth-child(3) { border-color: #a6ffa6; }
-        .data-cell:nth-child(4) { border-color: #ffb86b; }
-        .data-cell:nth-child(5) { border-color: #ff99cc; }
-        .data-cell:nth-child(6) { border-color: #b380ff; }
-
-        .data-cell:hover {
-            transform: scale(1.02) translateY(-6px);
-            box-shadow: 0 0 35px #c397ff;
+        .info-tile:hover {
+            border-color: #ffdf88;
+            background: rgba(20, 35, 45, 0.7);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -12px #000000, 0 0 20px rgba(255, 220, 100, 0.3);
         }
 
-        .cell-head {
+        .tile-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            color: #e2d1ff;
-            font-size: 1.2rem;
-            font-weight: 600;
+            gap: 0.8rem;
+            color: #ffe3aa;
+            font-size: 1rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 1rem;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
+            text-shadow: 0 0 2px #ffc107;
         }
 
-        .cell-head i {
-            font-size: 1.8rem;
-            color: #ffb3d9;
-        }
-
-        .cell-body {
-            color: #fefefe;
-            font-size: 2rem;
-            font-weight: 700;
-            padding-left: 0.4rem;
-            line-height: 1.3;
-        }
-
-        /* age & birth separated now */
-        .age-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .age-row {
-            display: flex;
-            align-items: baseline;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .age-label {
-            font-size: 1rem;
-            color: #aed7ff;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            background: #2b2350;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-        }
-        .age-number {
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: #ffe9b0;
-        }
-
-        /* green favorite color - normal text, no glow */
-        .green-plain {
-            color: #aaffaa;
-            font-size: 2rem;
-            font-weight: 600;
-            text-shadow: 0 0 0 transparent;
-            background: transparent;
-            padding: 0;
-            display: inline;
-            border: none;
-            box-shadow: none;
-        }
-
-        /* skills container - decoding & coding moved to separate table */
-        .skills-box {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .lang-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-        }
-        .lang-tag {
-            background: #333366;
-            border: 1px solid #aaaaff;
-            color: #f0f0ff;
-            padding: 0.5rem 1.5rem;
-            border-radius: 40px;
-            font-size: 1.2rem;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .lang-tag:hover { background: #5656b3; }
-
-        /* separate table for decoding/coding */
-        .decode-table {
-            margin-top: 0.5rem;
-            background: #1f1f3a;
-            border-radius: 28px;
-            padding: 1.2rem 1.2rem;
-            border: 2px dashed #b57cff;
-            width: 100%;
-        }
-        .decode-row {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .tile-header i {
             font-size: 1.5rem;
-            padding: 0.3rem 0;
+            color: #ffd966;
         }
-        .decode-icon {
-            color: #c98eff;
+
+        .tile-content {
+            color: #ffffff;
             font-size: 1.8rem;
-            width: 2rem;
-        }
-        .decode-text {
-            color: #ffe1b0;
             font-weight: 600;
-            font-family: 'Orbitron', monospace;
-        }
-        /* no translation for decode texts, they stay as is */
-
-        /* footer without extra line */
-        .signature-line {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid #a05eff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            color: #d0c0ff;
-            font-size: 1.3rem;
-            font-family: 'Orbitron', monospace;
+            padding-left: 0.3rem;
+            word-break: break-word;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
         }
 
-        .signature-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(80, 40, 130, 0.5);
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
-            border: 1px solid #ffa0f0;
-        }
-
-        .signature-item i {
-            color: #ffacf0;
+        /* 綠色特殊方塊 */
+        .green-chip {
+            background: linear-gradient(145deg, #0b6e42, #0a462c);
+            display: inline-block;
+            padding: 0.3rem 2rem;
+            border-radius: 80px;
             font-size: 1.8rem;
+            border: 2px solid #6affb0;
+            box-shadow: 0 0 25px #3aff9e;
+            color: #f0fff0;
+            font-weight: 700;
+            backdrop-filter: blur(2px);
         }
 
-        /* unique colorful touches */
-        .color-dots {
+        /* 技能徽章 奢華細節 */
+        .skill-pack {
             display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 35, 40, 0.7);
+            border: 1px solid #ffc857;
+            color: #fff2db;
+            padding: 0.4rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            transition: 0.2s;
+            backdrop-filter: blur(2px);
+        }
+
+        .skill-tag:hover {
+            background: #ffb347;
+            color: #010b0e;
+            border-color: white;
+            transform: scale(1.03);
+            box-shadow: 0 0 12px gold;
+        }
+
+        .skill-tag.special-tag {
+            background: linear-gradient(145deg, #004d66, #002f3a);
+            border-color: #6effe0;
+            color: #e2fff0;
+        }
+
+        /* 底部高貴條 */
+        .footer-strip {
+            margin-top: 2.5rem;
+            padding: 1.4rem 2rem;
+            background: rgba(0, 15, 20, 0.75);
+            border-radius: 60px;
+            border: 1px solid #ffd966;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: #fff3dd;
+            font-size: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            backdrop-filter: blur(8px);
             gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
         }
-        .dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #ff66b2;
-            box-shadow: 0 0 20px currentColor;
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
         }
-        .dot:nth-child(2) { background: #6effb0; }
-        .dot:nth-child(3) { background: #9f7aff; }
-        .dot:nth-child(4) { background: #ffdb7a; }
+
+        .footer-item i {
+            color: #ffdb8e;
+            font-size: 1.6rem;
+        }
+
+        /* 終端機裝飾 */
+        .cyber-line {
+            text-align: right;
+            margin-top: 1.8rem;
+            color: #ffd966;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            border-top: 1px dashed rgba(255,200,100,0.4);
+            padding-top: 1rem;
+        }
 
         @media (max-width: 700px) {
-            .prism-card { padding: 1.5rem; }
-            .logo-big { font-size: 4.5rem; }
+            .neo-card { padding: 1.8rem; }
+            .logo-name { font-size: 3rem; }
+            .tile-content { font-size: 1.4rem; }
+            .green-chip { font-size: 1.4rem; padding: 0.2rem 1.2rem; }
+            .footer-item { font-size: 1rem; }
+        }
+
+        /* 自定義滾動條 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            background: #03050b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffd966;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="galaxy-bg">
-        <div class="stars"></div>
+    <div class="royal-bg">
+        <div class="aurora"></div>
+        <div class="grid-overlay"></div>
+        <div class="floating-orb orb1"></div>
+        <div class="floating-orb orb2"></div>
+        <div class="floating-orb orb3"></div>
+        <canvas id="particle-canvas"></canvas>
     </div>
 
-    <div class="prism-card">
-        <!-- language pills -->
-        <div class="lang-switcher">
-            <button class="lang-choice active" data-lang="ku">کوردی</button>
-            <button class="lang-choice" data-lang="ar">عربي</button>
-            <button class="lang-choice" data-lang="en">English</button>
+    <div class="neo-card">
+        <!-- 語言切換 -->
+        <div class="lang-panel">
+            <button class="lang-pill active" data-lang="ku">کوردی</button>
+            <button class="lang-pill" data-lang="ar">عربي</button>
+            <button class="lang-pill" data-lang="en">English</button>
         </div>
 
-        <!-- logo - clean, no extra text -->
-        <div class="logo-banner">
-            <span class="logo-big">KANDYAS</span>
+        <!-- 標誌區 -->
+        <div class="logo-section">
+            <span class="logo-name">KANDYAS</span>
+            <span class="logo-prompt">$ whoami</span>
         </div>
 
-        <!-- social bricks (all identical) -->
-        <div class="social-cluster">
-            <a href="https://t.me/i4m_SHAW" target="_blank" class="cool-brick">
-                <i class="fab fa-telegram"></i>
+        <!-- 社交磚塊 -->
+        <div class="social-row">
+            <a href="https://t.me/i4m_SHAW" target="_blank" class="blue-brick">
+                <i class="fab fa-telegram-plane"></i>
                 <span data-i18n="telegram_user">@i4m_SHAW</span>
             </a>
-            <a href="https://tiktok.com/@kandyasm" target="_blank" class="cool-brick">
+            <a href="https://tiktok.com/@kandyasm" target="_blank" class="blue-brick">
                 <i class="fab fa-tiktok"></i>
                 <span data-i18n="tiktok_user">@kandyasm</span>
             </a>
-            <a href="https://t.me/Kurds_Movies" target="_blank" class="cool-brick">
-                <i class="fab fa-telegram"></i>
-                <span data-i18n="channel_user">Kurds_Movies</span>
+            <a href="https://t.me/Kurds_Movies" target="_blank" class="blue-brick channel-brick">
+                <i class="fab fa-telegram-plane"></i>
+                <span data-i18n="channel_name">Kurds_Movies</span>
             </a>
         </div>
 
-        <!-- main info grid -->
-        <div class="data-grid">
-            <!-- name -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-user-astronaut"></i> <span data-i18n="name_head">NAW</span></div>
-                <div class="cell-body" data-i18n="name_body">Kandyas</div>
+        <!-- 個人資訊網格 -->
+        <div class="profile-grid">
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-user-astronaut"></i> <span data-i18n="name_header">NAW</span></div>
+                <div class="tile-content" data-i18n="name_display">Kandyas</div>
             </div>
-
-            <!-- age and birth separated -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-calendar-alt"></i> <span data-i18n="age_head">TEMEN</span></div>
-                <div class="age-group">
-                    <div class="age-row">
-                        <span class="age-label" data-i18n="age_label">TEMEN</span>
-                        <span class="age-number" data-i18n="age_value">19 ساڵ</span>
-                    </div>
-                    <div class="age-row">
-                        <span class="age-label" data-i18n="birth_label">لەدایکبوون</span>
-                        <span class="age-number" data-i18n="birth_value">18/6</span>
-                    </div>
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-crown"></i> <span data-i18n="age_header">TEMEN / BIRTH</span></div>
+                <div class="tile-content" data-i18n="age_display">19 · 18/6</div>
+            </div>
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-leaf" style="color: #aaffaa;"></i> <span data-i18n="color_header">COLOUR</span></div>
+                <div class="tile-content"><span class="green-chip" data-i18n="color_display">💚 سەوز</span></div>
+            </div>
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-brain"></i> <span data-i18n="skills_header">EXPERTISE</span></div>
+                <div class="skill-pack">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">HTML</span>
+                    <span class="skill-tag">CSS</span>
+                    <span class="skill-tag special-tag">دیکۆدینگ</span>
+                    <span class="skill-tag special-tag">کۆدینگ</span>
                 </div>
             </div>
-
-            <!-- favorite color - plain green text, no glow, no box -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-heart" style="color: #7affa0;"></i> <span data-i18n="color_head">COLOUR</span></div>
-                <div class="cell-body"><span class="green-plain" data-i18n="color_body">💚 سەوز</span></div>
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-mosque"></i> <span data-i18n="religion_header">DIN</span></div>
+                <div class="tile-content" data-i18n="religion_display">ئیسلام</div>
             </div>
-
-            <!-- expertise area: programming languages (translatable) + separate decoding/coding table -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-code"></i> <span data-i18n="skills_head">EXPERTISE</span></div>
-                <div class="skills-box">
-                    <div class="lang-skills">
-                        <span class="lang-tag">Python</span>
-                        <span class="lang-tag">C</span>
-                        <span class="lang-tag">C++</span>
-                        <span class="lang-tag">HTML</span>
-                        <span class="lang-tag">CSS</span>
-                    </div>
-                    <!-- separate decoding/coding table, never translated -->
-                    <div class="decode-table">
-                        <div class="decode-row">
-                            <i class="fas fa-microchip decode-icon"></i>
-                            <span class="decode-text">دیکۆدینگ</span>
-                        </div>
-                        <div class="decode-row">
-                            <i class="fas fa-keyboard decode-icon"></i>
-                            <span class="decode-text">کۆدینگ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- religion islam -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-mosque"></i> <span data-i18n="religion_head">DIN</span></div>
-                <div class="cell-body" data-i18n="religion_body">ئیسلام</div>
-            </div>
-
-            <!-- medicine -->
-            <div class="data-cell">
-                <div class="cell-head"><i class="fas fa-stethoscope"></i> <span data-i18n="study_head">ARASTE</span></div>
-                <div class="cell-body" data-i18n="study_body">پزیشکی</div>
+            <div class="info-tile">
+                <div class="tile-header"><i class="fas fa-heartbeat"></i> <span data-i18n="study_header">ARASTE</span></div>
+                <div class="tile-content" data-i18n="study_display">پزیشکی</div>
             </div>
         </div>
 
-        <!-- signature footer: only "created by @i4m_SHAW © 2026" -->
-        <div class="signature-line">
-            <div class="signature-item">
-                <i class="fas fa-bolt"></i>
-                <span>created by @i4m_SHAW © 2026</span>
-                <i class="fas fa-crown"></i>
-            </div>
+        <!-- 底部資訊區 -->
+        <div class="footer-strip">
+            <div class="footer-item"><i class="fas fa-crescent-moon"></i> <span data-i18n="footer_islam">ئیسلام</span></div>
+            <div class="footer-item"><i class="fas fa-user-md"></i> <span data-i18n="footer_medicine">پزیشکی</span></div>
+            <div class="footer-item"><i class="fas fa-heart" style="color: #6affa5;"></i> <span data-i18n="footer_green_only">سەوز 💚</span></div>
         </div>
-
-        <!-- small decorative dots -->
-        <div class="color-dots">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </div>
+        <div class="cyber-line">❯_ KANDYAS@royal ~ $ █</div>
     </div>
 
     <script>
         (function() {
-            const translations = {
+            // 多語言字典（保留原始內容，完美兼容）
+            const dict = {
                 ku: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_user: "Kurds_Movies",
-                    name_head: "ناو",
-                    age_head: "تەمەن",
-                    color_head: "ڕەنگی دڵخواز",
-                    skills_head: "شارەزایی",
-                    religion_head: "دین",
-                    study_head: "ئاراستە",
-                    name_body: "Kandyas",
-                    age_label: "تەمەن",
-                    age_value: "١٩ ساڵ",
-                    birth_label: "لەدایکبوون",
-                    birth_value: "١٨/٦",
-                    color_body: "💚 سەوز",
-                    religion_body: "ئیسلام",
-                    study_body: "پزیشکی",
+                    channel_name: "Kurds_Movies",
+                    name_header: "ناو",
+                    age_header: "تەمەن / لەدایکبوون",
+                    color_header: "ڕەنگی دڵخواز",
+                    skills_header: "شارەزایی",
+                    religion_header: "دین",
+                    study_header: "ئاراستە",
+                    name_display: "Kandyas",
+                    age_display: "١٩ · ١٨/٦",
+                    color_display: "💚 سەوز",
+                    religion_display: "ئیسلام",
+                    study_display: "پزیشکی",
+                    footer_islam: "ئیسلام",
+                    footer_medicine: "پزیشکی",
+                    footer_green_only: "سەوز 💚",
                 },
                 ar: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_user: "Kurds_Movies",
-                    name_head: "الاسم",
-                    age_head: "العمر",
-                    color_head: "اللون المفضل",
-                    skills_head: "المهارات",
-                    religion_head: "الدين",
-                    study_head: "التخصص",
-                    name_body: "Kandyas",
-                    age_label: "العمر",
-                    age_value: "١٩ سنة",
-                    birth_label: "الميلاد",
-                    birth_value: "١٨/٦",
-                    color_body: "💚 أخضر",
-                    religion_body: "الإسلام",
-                    study_body: "طب",
+                    channel_name: "Kurds_Movies",
+                    name_header: "الاسم",
+                    age_header: "العمر / الميلاد",
+                    color_header: "اللون المفضل",
+                    skills_header: "المهارات",
+                    religion_header: "الدين",
+                    study_header: "التخصص",
+                    name_display: "Kandyas",
+                    age_display: "١٩ · ١٨/٦",
+                    color_display: "💚 أخضر",
+                    religion_display: "الإسلام",
+                    study_display: "طب",
+                    footer_islam: "الإسلام",
+                    footer_medicine: "طب",
+                    footer_green_only: "أخضر 💚",
                 },
                 en: {
                     telegram_user: "@i4m_SHAW",
                     tiktok_user: "@kandyasm",
-                    channel_user: "Kurds_Movies",
-                    name_head: "NAME",
-                    age_head: "AGE",
-                    color_head: "FAV COLOR",
-                    skills_head: "EXPERTISE",
-                    religion_head: "RELIGION",
-                    study_head: "FIELD",
-                    name_body: "Kandyas",
-                    age_label: "Age",
-                    age_value: "19 years",
-                    birth_label: "Birth",
-                    birth_value: "18/6",
-                    color_body: "💚 Green",
-                    religion_body: "Islam",
-                    study_body: "Medicine",
+                    channel_name: "Kurds_Movies",
+                    name_header: "NAME",
+                    age_header: "AGE / BIRTH",
+                    color_header: "FAV COLOR",
+                    skills_header: "EXPERTISE",
+                    religion_header: "RELIGION",
+                    study_header: "FIELD",
+                    name_display: "Kandyas",
+                    age_display: "19 · 18/6",
+                    color_display: "💚 Green",
+                    religion_display: "Islam",
+                    study_display: "Medicine",
+                    footer_islam: "Islam",
+                    footer_medicine: "Medicine",
+                    footer_green_only: "Green 💚",
                 }
             };
 
-            function setLang(lang) {
+            function switchLang(lang) {
                 document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations[lang] && translations[lang][key] !== undefined) {
-                        el.innerText = translations[lang][key];
+                    const key = el.dataset.i18n;
+                    if (dict[lang] && dict[lang][key] !== undefined) {
+                        el.innerText = dict[lang][key];
                     }
                 });
-
-                document.querySelectorAll('.lang-choice').forEach(btn => {
+                document.querySelectorAll('.lang-pill').forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.lang === lang);
                 });
             }
 
-            document.querySelectorAll('.lang-choice').forEach(btn => {
-                btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.lang-pill').forEach(btn => {
+                btn.addEventListener('click', e => {
                     const lang = e.currentTarget.dataset.lang;
-                    setLang(lang);
+                    switchLang(lang);
                 });
             });
+            switchLang('ku');
 
-            setLang('ku');
+            // ========= 華麗動態粒子背景 (星辰 + 漂浮粒子) =========
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            const PARTICLE_COUNT = 140;
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < PARTICLE_COUNT; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 2.5 + 1.2,
+                        alpha: Math.random() * 0.6 + 0.2,
+                        speedX: (Math.random() - 0.5) * 0.25,
+                        speedY: (Math.random() - 0.5) * 0.15,
+                        pulse: Math.random() * Math.PI * 2,
+                    });
+                }
+            }
+
+            function drawParticles() {
+                if (!ctx) return;
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    ctx.beginPath();
+                    const glow = 0.5 + Math.sin(Date.now() * 0.002 + p.pulse) * 0.3;
+                    ctx.arc(p.x, p.y, p.radius + glow * 0.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 215, 120, ${p.alpha * (0.5 + glow * 0.5)})`;
+                    ctx.fill();
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#ffd966';
+                    ctx.fillStyle = `rgba(100, 255, 200, ${p.alpha * 0.5})`;
+                    ctx.arc(p.x, p.y, p.radius * 0.6, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                    // 移動
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    if (p.x < -20) p.x = width + 20;
+                    if (p.x > width + 20) p.x = -20;
+                    if (p.y < -20) p.y = height + 20;
+                    if (p.y > height + 20) p.y = -20;
+                }
+                requestAnimationFrame(drawParticles);
+            }
+
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+            resizeCanvas();
+            drawParticles();
+
+            // 添加滑鼠光暈特效 (皇家氣息)
+            const card = document.querySelector('.neo-card');
+            document.body.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                const moveX = (x - 0.5) * 20;
+                const moveY = (y - 0.5) * 20;
+                if (card) {
+                    card.style.transform = `translateY(-3px) perspective(1000px) rotateX(${moveY * 0.05}deg) rotateY(${moveX * 0.05}deg)`;
+                }
+            });
+            document.body.addEventListener('mouseleave', () => {
+                if (card) card.style.transform = 'translateY(-5px) perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            });
         })();
     </script>
 </body>
